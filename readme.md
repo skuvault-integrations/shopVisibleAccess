@@ -1,1 +1,0 @@
-ShopVisibleAccess is .NET wrapper around [ShopVisible API](https://api.shopvisible.com/wiki2/ShopVisible%20FAQ.ashx) was created to simplify and speed up working with it.
