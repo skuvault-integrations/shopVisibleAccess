@@ -38,3 +38,6 @@ deployment
 
 #Exceptions
 !ReleaseNotes/
+
+#test files
+ShopVisibleCredentials.csv
