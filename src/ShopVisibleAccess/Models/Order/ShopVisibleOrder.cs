@@ -9,6 +9,9 @@ namespace ShopVisibleAccess.Models.Order
 		[ XmlElement( ElementName = "OrderID" ) ]
 		public int OrderId { get; set; }
 
+		[ XmlElement( ElementName = "OrderNumber" ) ]
+		public int OrderNumber { get; set; }
+
 		[ XmlElement( ElementName = "OrderDate" ) ]
 		public DateTime OrderDate { get; set; }
 
