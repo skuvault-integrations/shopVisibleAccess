@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
-using System.Xml;
 using ShopVisibleAccess.Misc;
 using ShopVisibleAccess.Models;
 using ShopVisibleAccess.Models.Order;
@@ -22,35 +22,55 @@ namespace ShopVisibleAccess
 
 		public ShopVisibleOrders GetOrders( DateTime startDateUtc, DateTime endDateUtc )
 		{
-			XmlNode orders = new XmlDocument();
+			var orders = new ShopVisibleOrders();
 			ActionPolicies.Submit.Do( () =>
 			{
 				if( this.OrdersByDateRangeNeeded( startDateUtc, endDateUtc ) )
-					orders = this._client.GetOrdersByDateRange( this._credentials.ClientName, this._credentials.Guid, startDateUtc.ToString( CultureInfo.InvariantCulture ), endDateUtc.ToString( CultureInfo.InvariantCulture ), "true" );
+				{
+					var xmlnewOrders = this._client.GetOrdersByDateRange( this._credentials.ClientName, this._credentials.Guid, startDateUtc.ToString( CultureInfo.InvariantCulture ), endDateUtc.ToString( CultureInfo.InvariantCulture ), "true" );
+					orders = XmlSerializeHelpers.Deserialize< ShopVisibleOrders >( xmlnewOrders.OuterXml );
+				}
 				else
-					orders = this._client.GetOrdersByDateTimeRange( this._credentials.ClientName, this._credentials.Guid, startDateUtc.ToString( "G" ), endDateUtc.ToString( "G" ), "true" );
+				{
+					var xmlnewOrders = this._client.GetOrdersByDateTimeRange( this._credentials.ClientName, this._credentials.Guid, startDateUtc.ToString( CultureInfo.InvariantCulture ), endDateUtc.ToString( CultureInfo.InvariantCulture ), "true" );
+					var xmlmodifiedOrders = this._client.GetChangedOrdersByDateRange( this._credentials.ClientName, this._credentials.Guid, startDateUtc.ToString( CultureInfo.InvariantCulture ), endDateUtc.ToString( CultureInfo.InvariantCulture ), "true" );
+					var newOrders = XmlSerializeHelpers.Deserialize< ShopVisibleOrders >( xmlnewOrders.OuterXml );
+					var modifiedOrders = XmlSerializeHelpers.Deserialize< ShopVisibleOrders >( xmlmodifiedOrders.OuterXml );
+
+					orders.Orders = newOrders.Orders.Concat( modifiedOrders.Orders ).ToList();
+				}
 			} );
 
-			return XmlSerializeHelpers.Deserialize< ShopVisibleOrders >( orders.OuterXml );
+			return orders;
 		}
 
 		public async Task< ShopVisibleOrders > GetOrdersAsync( DateTime startDateUtc, DateTime endDateUtc )
 		{
-			XmlNode orders = new XmlDocument();
+			var orders = new ShopVisibleOrders();
 			await ActionPolicies.GetAsync.Do( async () =>
 			{
 				if( this.OrdersByDateRangeNeeded( startDateUtc, endDateUtc ) )
-					orders = await this._client.GetOrdersByDateRangeAsync( this._credentials.ClientName, this._credentials.Guid, startDateUtc.ToString( CultureInfo.InvariantCulture ), endDateUtc.ToString( CultureInfo.InvariantCulture ), "true" );
+				{
+					var xmlnewOrders = await this._client.GetOrdersByDateRangeAsync( this._credentials.ClientName, this._credentials.Guid, startDateUtc.ToString( CultureInfo.InvariantCulture ), endDateUtc.ToString( CultureInfo.InvariantCulture ), "true" );
+					orders = XmlSerializeHelpers.Deserialize< ShopVisibleOrders >( xmlnewOrders.OuterXml );
+				}
 				else
-					orders = await this._client.GetOrdersByDateTimeRangeAsync( this._credentials.ClientName, this._credentials.Guid, startDateUtc.ToString( CultureInfo.InvariantCulture ), endDateUtc.ToString( CultureInfo.InvariantCulture ), "true" );
+				{
+					var xmlnewOrders = await this._client.GetOrdersByDateTimeRangeAsync( this._credentials.ClientName, this._credentials.Guid, startDateUtc.ToString( CultureInfo.InvariantCulture ), endDateUtc.ToString( CultureInfo.InvariantCulture ), "true" );
+					var xmlmodifiedOrders = await this._client.GetChangedOrdersByDateRangeAsync( this._credentials.ClientName, this._credentials.Guid, startDateUtc.ToString( CultureInfo.InvariantCulture ), endDateUtc.ToString( CultureInfo.InvariantCulture ), "true" );
+					var newOrders = XmlSerializeHelpers.Deserialize< ShopVisibleOrders >( xmlnewOrders.OuterXml );
+					var modifiedOrders = XmlSerializeHelpers.Deserialize< ShopVisibleOrders >( xmlmodifiedOrders.OuterXml );
+
+					orders.Orders = newOrders.Orders.Concat( modifiedOrders.Orders ).ToList();
+				}
 			} );
 
-			return XmlSerializeHelpers.Deserialize< ShopVisibleOrders >( orders.OuterXml );
+			return orders;
 		}
 
 		private bool OrdersByDateRangeNeeded( DateTime startDateUtc, DateTime endDateUtc )
 		{
-			return endDateUtc - startDateUtc > TimeSpan.FromHours( 1 );
+			return endDateUtc - startDateUtc > TimeSpan.FromDays( 2 );
 		}
 	}
 }

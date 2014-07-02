@@ -69,6 +69,6 @@ namespace ShopVisibleAccess.Models.Order
 		PartiallyCompleteCancelledItems = 34,
 		ProcessedPendingReview = 35,
 		LocalPickup = 36,
-		OrderChargeback = 37,
+		OrderChargeback = 37
 	}
 }
