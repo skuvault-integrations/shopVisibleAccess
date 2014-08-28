@@ -425,6 +425,14 @@ namespace ShopVisibleAccess.ProductServices {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://api.shopvisible.com/GetOptionPriceBreakbyProductID", ReplyAction="*")]
         System.Threading.Tasks.Task<System.Xml.XmlNode> GetOptionPriceBreakbyProductIDAsync(string ClientName, string Guid, string ProductID);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.shopvisible.com/DeletePriceBreak", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(BaseDO))]
+        System.Xml.XmlNode DeletePriceBreak(string ClientName, string Guid, string InboundXML, string ProcessBy, string ProcessingOptions);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://api.shopvisible.com/DeletePriceBreak", ReplyAction="*")]
+        System.Threading.Tasks.Task<System.Xml.XmlNode> DeletePriceBreakAsync(string ClientName, string Guid, string InboundXML, string ProcessBy, string ProcessingOptions);
     }
     
     /// <remarks/>
@@ -547,6 +555,8 @@ namespace ShopVisibleAccess.ProductServices {
         
         private string productReviewURLField;
         
+        private string productrWriteReviewURLField;
+        
         private bool productEditorsChoiceField;
         
         private bool productNewProductField;
@@ -645,7 +655,7 @@ namespace ShopVisibleAccess.ProductServices {
         
         private string productSelectableListField;
         
-        private bool productExcludeFromGoogleCheckoutField;
+        private bool productExcludeFromThirdPartyCheckoutField;
         
         private bool productIsOversizedField;
         
@@ -750,6 +760,8 @@ namespace ShopVisibleAccess.ProductServices {
         private System.Nullable<int> productIsAmazonFBAField;
         
         private string productAmazonFBASKUField;
+        
+        private System.Nullable<bool> nonDiscountableField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=0)]
@@ -981,6 +993,18 @@ namespace ShopVisibleAccess.ProductServices {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=19)]
+        public string ProductrWriteReviewURL {
+            get {
+                return this.productrWriteReviewURLField;
+            }
+            set {
+                this.productrWriteReviewURLField = value;
+                this.RaisePropertyChanged("ProductrWriteReviewURL");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=20)]
         public bool ProductEditorsChoice {
             get {
                 return this.productEditorsChoiceField;
@@ -992,7 +1016,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=20)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=21)]
         public bool ProductNewProduct {
             get {
                 return this.productNewProductField;
@@ -1004,7 +1028,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=21)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=22)]
         public System.DateTime ProductNewProductDate {
             get {
                 return this.productNewProductDateField;
@@ -1016,7 +1040,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=22)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=23)]
         public bool ProductFreeShipping {
             get {
                 return this.productFreeShippingField;
@@ -1028,7 +1052,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=23)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=24)]
         public bool ProductSpecialProduct {
             get {
                 return this.productSpecialProductField;
@@ -1040,7 +1064,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=24)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=25)]
         public System.DateTime ProductSpecialProductDate {
             get {
                 return this.productSpecialProductDateField;
@@ -1052,7 +1076,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=25)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=26)]
         public string ProductNotes {
             get {
                 return this.productNotesField;
@@ -1064,7 +1088,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=26)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=27)]
         public int ProductStockStatusID {
             get {
                 return this.productStockStatusIDField;
@@ -1076,7 +1100,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=27)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=28)]
         public string ProductStockStatus {
             get {
                 return this.productStockStatusField;
@@ -1088,7 +1112,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=28)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=29)]
         public string ProductDetailedStatus {
             get {
                 return this.productDetailedStatusField;
@@ -1100,7 +1124,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=29)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=30)]
         public bool ProductStockOverride {
             get {
                 return this.productStockOverrideField;
@@ -1112,7 +1136,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=30)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=31)]
         public bool ProductPriceOverride {
             get {
                 return this.productPriceOverrideField;
@@ -1124,7 +1148,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=31)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=32)]
         public bool ProductDeleted {
             get {
                 return this.productDeletedField;
@@ -1136,7 +1160,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=32)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=33)]
         public bool ProductPreOrder {
             get {
                 return this.productPreOrderField;
@@ -1148,7 +1172,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=33)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=34)]
         public System.DateTime ProductInStockDate {
             get {
                 return this.productInStockDateField;
@@ -1160,7 +1184,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=34)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=35)]
         public string ProductPartNo {
             get {
                 return this.productPartNoField;
@@ -1172,7 +1196,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=35)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=36)]
         public string ProductPartNoAlternate {
             get {
                 return this.productPartNoAlternateField;
@@ -1184,7 +1208,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=36)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=37)]
         public bool ProductLocalSales {
             get {
                 return this.productLocalSalesField;
@@ -1196,7 +1220,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=37)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=38)]
         public bool ProductPayPerClick {
             get {
                 return this.productPayPerClickField;
@@ -1208,7 +1232,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=38)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=39)]
         public bool ProductShopbot {
             get {
                 return this.productShopbotField;
@@ -1220,7 +1244,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=39)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=40)]
         public string ProductOpenboxCondition {
             get {
                 return this.productOpenboxConditionField;
@@ -1232,7 +1256,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=40)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=41)]
         public string ProductCustomText {
             get {
                 return this.productCustomTextField;
@@ -1244,7 +1268,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=41)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=42)]
         public bool ProductReturnProtection {
             get {
                 return this.productReturnProtectionField;
@@ -1256,7 +1280,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=42)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=43)]
         public bool ProductAmazon {
             get {
                 return this.productAmazonField;
@@ -1268,7 +1292,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=43)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=44)]
         public string ProductUPC {
             get {
                 return this.productUPCField;
@@ -1280,7 +1304,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=44)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=45)]
         public int ProductOrder {
             get {
                 return this.productOrderField;
@@ -1292,7 +1316,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=45)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=46)]
         public string ProductCatalogBookNumber {
             get {
                 return this.productCatalogBookNumberField;
@@ -1304,7 +1328,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=46)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=47)]
         public string ProductCatalogPageNumber {
             get {
                 return this.productCatalogPageNumberField;
@@ -1316,7 +1340,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=47)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=48)]
         public bool ProductStandardFreight {
             get {
                 return this.productStandardFreightField;
@@ -1328,7 +1352,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=48)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=49)]
         public decimal ProductSystemShippingAmount {
             get {
                 return this.productSystemShippingAmountField;
@@ -1340,7 +1364,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=49)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=50)]
         public decimal ProductFreightClass {
             get {
                 return this.productFreightClassField;
@@ -1352,7 +1376,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=50)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=51)]
         public bool ProductIsLimited {
             get {
                 return this.productIsLimitedField;
@@ -1364,7 +1388,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=51)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=52)]
         public string ProductVIN {
             get {
                 return this.productVINField;
@@ -1376,7 +1400,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=52)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=53)]
         public string ProductYear {
             get {
                 return this.productYearField;
@@ -1388,7 +1412,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=53)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=54)]
         public string ProductSubModel {
             get {
                 return this.productSubModelField;
@@ -1400,7 +1424,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=54)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=55)]
         public int ProductMiles {
             get {
                 return this.productMilesField;
@@ -1412,7 +1436,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=55)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=56)]
         public string ProductMetaTitle {
             get {
                 return this.productMetaTitleField;
@@ -1424,7 +1448,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=56)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=57)]
         public string ProductMetaKeywords {
             get {
                 return this.productMetaKeywordsField;
@@ -1436,7 +1460,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=57)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=58)]
         public string ProductMetaDescription {
             get {
                 return this.productMetaDescriptionField;
@@ -1448,7 +1472,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=58)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=59)]
         public string ProductMetaTags {
             get {
                 return this.productMetaTagsField;
@@ -1460,7 +1484,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=59)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=60)]
         public string ProductCertifiedStatus {
             get {
                 return this.productCertifiedStatusField;
@@ -1472,7 +1496,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=60)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=61)]
         public decimal ProductSubWeight {
             get {
                 return this.productSubWeightField;
@@ -1484,7 +1508,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=61)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=62)]
         public string ProductNextPurchaseOn {
             get {
                 return this.productNextPurchaseOnField;
@@ -1496,7 +1520,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=62)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=63)]
         public string ProductNextPurchaseOnPeriod {
             get {
                 return this.productNextPurchaseOnPeriodField;
@@ -1508,7 +1532,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=63)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=64)]
         public int ProductNextProductAccessoryGroup {
             get {
                 return this.productNextProductAccessoryGroupField;
@@ -1520,7 +1544,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=64)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=65)]
         public bool ProductIsGiftCard {
             get {
                 return this.productIsGiftCardField;
@@ -1532,7 +1556,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=65)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=66)]
         public System.DateTime ProductGiftCardExpiresDate {
             get {
                 return this.productGiftCardExpiresDateField;
@@ -1544,7 +1568,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=66)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=67)]
         public int ProductGiftCardValidForDays {
             get {
                 return this.productGiftCardValidForDaysField;
@@ -1556,7 +1580,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=67)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=68)]
         public string ProductSelectableList {
             get {
                 return this.productSelectableListField;
@@ -1568,19 +1592,19 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=68)]
-        public bool ProductExcludeFromGoogleCheckout {
+        [System.Xml.Serialization.XmlElementAttribute(Order=69)]
+        public bool ProductExcludeFromThirdPartyCheckout {
             get {
-                return this.productExcludeFromGoogleCheckoutField;
+                return this.productExcludeFromThirdPartyCheckoutField;
             }
             set {
-                this.productExcludeFromGoogleCheckoutField = value;
-                this.RaisePropertyChanged("ProductExcludeFromGoogleCheckout");
+                this.productExcludeFromThirdPartyCheckoutField = value;
+                this.RaisePropertyChanged("ProductExcludeFromThirdPartyCheckout");
             }
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=69)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=70)]
         public bool ProductIsOversized {
             get {
                 return this.productIsOversizedField;
@@ -1592,7 +1616,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=70)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=71)]
         public int ProductSizeHeight {
             get {
                 return this.productSizeHeightField;
@@ -1604,7 +1628,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=71)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=72)]
         public int ProductSizeWidth {
             get {
                 return this.productSizeWidthField;
@@ -1616,7 +1640,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=72)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=73)]
         public int ProductSizeLength {
             get {
                 return this.productSizeLengthField;
@@ -1628,7 +1652,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=73)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=74)]
         public string ProductWarrantyProvider {
             get {
                 return this.productWarrantyProviderField;
@@ -1640,7 +1664,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=74)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=75)]
         public string ProductWarrantyLength {
             get {
                 return this.productWarrantyLengthField;
@@ -1652,7 +1676,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=75)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=76)]
         public string ProductWarrantyPhone {
             get {
                 return this.productWarrantyPhoneField;
@@ -1664,7 +1688,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=76)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=77)]
         public bool ProductInOverstock {
             get {
                 return this.productInOverstockField;
@@ -1676,7 +1700,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=77)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=78)]
         public System.DateTime ProductCreated {
             get {
                 return this.productCreatedField;
@@ -1688,7 +1712,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=78)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=79)]
         public System.DateTime ProductModified {
             get {
                 return this.productModifiedField;
@@ -1700,7 +1724,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=79)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=80)]
         public int ProductMasterProductID {
             get {
                 return this.productMasterProductIDField;
@@ -1712,7 +1736,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=80)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=81)]
         public string ProductCustomXML {
             get {
                 return this.productCustomXMLField;
@@ -1724,7 +1748,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=81)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=82)]
         public string ProductExtra1 {
             get {
                 return this.productExtra1Field;
@@ -1736,7 +1760,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=82)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=83)]
         public string ProductExtra2 {
             get {
                 return this.productExtra2Field;
@@ -1748,7 +1772,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=83)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=84)]
         public string ProductExtra3 {
             get {
                 return this.productExtra3Field;
@@ -1760,7 +1784,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=84)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=85)]
         public string ProductExtra4 {
             get {
                 return this.productExtra4Field;
@@ -1772,7 +1796,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=85)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=86)]
         public string ProductExtra5 {
             get {
                 return this.productExtra5Field;
@@ -1784,7 +1808,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=86)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=87)]
         public string ProductExtra6 {
             get {
                 return this.productExtra6Field;
@@ -1796,7 +1820,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=87)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=88)]
         public string ProductExtra7 {
             get {
                 return this.productExtra7Field;
@@ -1808,7 +1832,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=88)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=89)]
         public string ProductExtra8 {
             get {
                 return this.productExtra8Field;
@@ -1820,7 +1844,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=89)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=90)]
         public string ProductExtra9 {
             get {
                 return this.productExtra9Field;
@@ -1832,7 +1856,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=90)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=91)]
         public string ProductExtra10 {
             get {
                 return this.productExtra10Field;
@@ -1844,7 +1868,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=91)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=92)]
         public bool ProductDisallowGiftwrap {
             get {
                 return this.productDisallowGiftwrapField;
@@ -1856,7 +1880,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=92)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=93)]
         public string ProductAmazonIDNumber {
             get {
                 return this.productAmazonIDNumberField;
@@ -1868,7 +1892,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=93)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=94)]
         public string ProductManufactureCountry {
             get {
                 return this.productManufactureCountryField;
@@ -1880,7 +1904,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=94)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=95)]
         public bool ProductFreeConditionalShipping {
             get {
                 return this.productFreeConditionalShippingField;
@@ -1892,7 +1916,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=95)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=96)]
         public string ProductHSCode {
             get {
                 return this.productHSCodeField;
@@ -1904,7 +1928,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=96)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=97)]
         public bool ProductTaxExempt {
             get {
                 return this.productTaxExemptField;
@@ -1916,7 +1940,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=97)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=98)]
         public int ProductQtyThresholdLow {
             get {
                 return this.productQtyThresholdLowField;
@@ -1928,7 +1952,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=98)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=99)]
         public int ProductQtyThresholdHigh {
             get {
                 return this.productQtyThresholdHighField;
@@ -1940,7 +1964,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=99)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=100)]
         public string ProductAmazonSKU {
             get {
                 return this.productAmazonSKUField;
@@ -1952,7 +1976,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=100)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=101)]
         public string ProductBinNo {
             get {
                 return this.productBinNoField;
@@ -1964,7 +1988,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=101)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=102)]
         public string ProductURL {
             get {
                 return this.productURLField;
@@ -1976,7 +2000,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=102)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=103)]
         public System.Nullable<bool> ProductDigital {
             get {
                 return this.productDigitalField;
@@ -1988,7 +2012,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=103)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=104)]
         public bool ProductDisplayInMobile {
             get {
                 return this.productDisplayInMobileField;
@@ -2000,7 +2024,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=104)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=105)]
         public System.Nullable<System.DateTime> ProductExpirationDate {
             get {
                 return this.productExpirationDateField;
@@ -2012,7 +2036,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=105)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=106)]
         public System.Nullable<bool> ProductRequiresActivation {
             get {
                 return this.productRequiresActivationField;
@@ -2024,7 +2048,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=106)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=107)]
         public CategoryCollection Categories {
             get {
                 return this.categoriesField;
@@ -2036,7 +2060,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=107)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=108)]
         public SubCategoryCollection SubCategoriesShared {
             get {
                 return this.subCategoriesSharedField;
@@ -2048,7 +2072,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=108)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=109)]
         public BrandDO Brand {
             get {
                 return this.brandField;
@@ -2060,7 +2084,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=109)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=110)]
         public SubBrandDO SubBrand {
             get {
                 return this.subBrandField;
@@ -2072,7 +2096,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=110)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=111)]
         public ProductPriceDO Price {
             get {
                 return this.priceField;
@@ -2084,7 +2108,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=111)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=112)]
         public ProductPriceBreakCollection PriceBreaks {
             get {
                 return this.priceBreaksField;
@@ -2096,7 +2120,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=112)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=113)]
         public ProductOptionGroupCollection ProductOptionGroups {
             get {
                 return this.productOptionGroupsField;
@@ -2108,7 +2132,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=113)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=114)]
         public ProductImageCollection Images {
             get {
                 return this.imagesField;
@@ -2120,7 +2144,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=114)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=115)]
         public ProductVideoCollection Videos {
             get {
                 return this.videosField;
@@ -2132,7 +2156,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=115)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=116)]
         public ProductSupplierCollection Suppliers {
             get {
                 return this.suppliersField;
@@ -2144,7 +2168,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=116)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=117)]
         public ClassificationCollection Classifications {
             get {
                 return this.classificationsField;
@@ -2156,7 +2180,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=117)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=118)]
         public ProductComparableSpecCollection ComparableSpecs {
             get {
                 return this.comparableSpecsField;
@@ -2168,7 +2192,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=118)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=119)]
         public TierGroupProductCollection tiergroupproducts {
             get {
                 return this.tiergroupproductsField;
@@ -2180,7 +2204,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=119)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=120)]
         public System.Nullable<int> ProductIsAmazonFBA {
             get {
                 return this.productIsAmazonFBAField;
@@ -2192,7 +2216,7 @@ namespace ShopVisibleAccess.ProductServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=120)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=121)]
         public string ProductAmazonFBASKU {
             get {
                 return this.productAmazonFBASKUField;
@@ -2200,6 +2224,18 @@ namespace ShopVisibleAccess.ProductServices {
             set {
                 this.productAmazonFBASKUField = value;
                 this.RaisePropertyChanged("ProductAmazonFBASKU");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=122)]
+        public System.Nullable<bool> NonDiscountable {
+            get {
+                return this.nonDiscountableField;
+            }
+            set {
+                this.nonDiscountableField = value;
+                this.RaisePropertyChanged("NonDiscountable");
             }
         }
     }
@@ -4164,6 +4200,14 @@ namespace ShopVisibleAccess.ProductServices {
         
         private string productOptionAmazonFBASKUField;
         
+        private System.Nullable<bool> productOptionNonDiscountableField;
+        
+        private decimal productOptionWholesaleOnSaleField;
+        
+        private System.Nullable<System.DateTime> productOptionWholesaleOnSaleStartDateField;
+        
+        private System.Nullable<System.DateTime> productOptionWholesaleOnSaleEndDateField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public int ProductOptionID {
@@ -4569,6 +4613,54 @@ namespace ShopVisibleAccess.ProductServices {
             set {
                 this.productOptionAmazonFBASKUField = value;
                 this.RaisePropertyChanged("ProductOptionAmazonFBASKU");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=34)]
+        public System.Nullable<bool> ProductOptionNonDiscountable {
+            get {
+                return this.productOptionNonDiscountableField;
+            }
+            set {
+                this.productOptionNonDiscountableField = value;
+                this.RaisePropertyChanged("ProductOptionNonDiscountable");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=35)]
+        public decimal ProductOptionWholesaleOnSale {
+            get {
+                return this.productOptionWholesaleOnSaleField;
+            }
+            set {
+                this.productOptionWholesaleOnSaleField = value;
+                this.RaisePropertyChanged("ProductOptionWholesaleOnSale");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=36)]
+        public System.Nullable<System.DateTime> ProductOptionWholesaleOnSaleStartDate {
+            get {
+                return this.productOptionWholesaleOnSaleStartDateField;
+            }
+            set {
+                this.productOptionWholesaleOnSaleStartDateField = value;
+                this.RaisePropertyChanged("ProductOptionWholesaleOnSaleStartDate");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=37)]
+        public System.Nullable<System.DateTime> ProductOptionWholesaleOnSaleEndDate {
+            get {
+                return this.productOptionWholesaleOnSaleEndDateField;
+            }
+            set {
+                this.productOptionWholesaleOnSaleEndDateField = value;
+                this.RaisePropertyChanged("ProductOptionWholesaleOnSaleEndDate");
             }
         }
     }
@@ -5457,6 +5549,10 @@ namespace ShopVisibleAccess.ProductServices {
         
         private System.Nullable<int> fraudCartQuantityField;
         
+        private int categoryIDField;
+        
+        private string categoryNameField;
+        
         private SubCategoryCollection subCategoriesField;
         
         /// <remarks/>
@@ -5929,6 +6025,30 @@ namespace ShopVisibleAccess.ProductServices {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=39)]
+        public int CategoryID {
+            get {
+                return this.categoryIDField;
+            }
+            set {
+                this.categoryIDField = value;
+                this.RaisePropertyChanged("CategoryID");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=40)]
+        public string CategoryName {
+            get {
+                return this.categoryNameField;
+            }
+            set {
+                this.categoryNameField = value;
+                this.RaisePropertyChanged("CategoryName");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=41)]
         public SubCategoryCollection SubCategories {
             get {
                 return this.subCategoriesField;
@@ -6013,6 +6133,8 @@ namespace ShopVisibleAccess.ProductServices {
         private string categoryFeaturedProductsField;
         
         private string categoryHeadingField;
+        
+        private bool hiddenField;
         
         private SubCategoryCollection subCategoriesField;
         
@@ -6138,6 +6260,18 @@ namespace ShopVisibleAccess.ProductServices {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=10)]
+        public bool Hidden {
+            get {
+                return this.hiddenField;
+            }
+            set {
+                this.hiddenField = value;
+                this.RaisePropertyChanged("Hidden");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=11)]
         public SubCategoryCollection SubCategories {
             get {
                 return this.subCategoriesField;
@@ -6194,6 +6328,12 @@ namespace ShopVisibleAccess.ProductServices {
         private System.Nullable<System.DateTime> saleEndDateTimeField;
         
         private System.Nullable<decimal> priceWholesaleField;
+        
+        private System.Nullable<System.DateTime> wholeSaleOnSaleStartDateField;
+        
+        private System.Nullable<System.DateTime> wholeSaleOnSaleEndDateField;
+        
+        private System.Nullable<decimal> wholeSaleOnSaleField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
@@ -6420,6 +6560,42 @@ namespace ShopVisibleAccess.ProductServices {
             set {
                 this.priceWholesaleField = value;
                 this.RaisePropertyChanged("PriceWholesale");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=19)]
+        public System.Nullable<System.DateTime> WholeSaleOnSaleStartDate {
+            get {
+                return this.wholeSaleOnSaleStartDateField;
+            }
+            set {
+                this.wholeSaleOnSaleStartDateField = value;
+                this.RaisePropertyChanged("WholeSaleOnSaleStartDate");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=20)]
+        public System.Nullable<System.DateTime> WholeSaleOnSaleEndDate {
+            get {
+                return this.wholeSaleOnSaleEndDateField;
+            }
+            set {
+                this.wholeSaleOnSaleEndDateField = value;
+                this.RaisePropertyChanged("WholeSaleOnSaleEndDate");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=21)]
+        public System.Nullable<decimal> WholeSaleOnSale {
+            get {
+                return this.wholeSaleOnSaleField;
+            }
+            set {
+                this.wholeSaleOnSaleField = value;
+                this.RaisePropertyChanged("WholeSaleOnSale");
             }
         }
     }
@@ -6979,6 +7155,14 @@ namespace ShopVisibleAccess.ProductServices {
         
         public System.Threading.Tasks.Task<System.Xml.XmlNode> GetOptionPriceBreakbyProductIDAsync(string ClientName, string Guid, string ProductID) {
             return base.Channel.GetOptionPriceBreakbyProductIDAsync(ClientName, Guid, ProductID);
+        }
+        
+        public System.Xml.XmlNode DeletePriceBreak(string ClientName, string Guid, string InboundXML, string ProcessBy, string ProcessingOptions) {
+            return base.Channel.DeletePriceBreak(ClientName, Guid, InboundXML, ProcessBy, ProcessingOptions);
+        }
+        
+        public System.Threading.Tasks.Task<System.Xml.XmlNode> DeletePriceBreakAsync(string ClientName, string Guid, string InboundXML, string ProcessBy, string ProcessingOptions) {
+            return base.Channel.DeletePriceBreakAsync(ClientName, Guid, InboundXML, ProcessBy, ProcessingOptions);
         }
     }
 }

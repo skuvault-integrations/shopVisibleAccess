@@ -51,6 +51,7 @@
               <s:element minOccurs="0" maxOccurs="1" name="ProductCaption" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="ProductSpecsList" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="ProductReviewURL" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ProductrWriteReviewURL" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="ProductEditorsChoice" type="s:boolean" />
               <s:element minOccurs="1" maxOccurs="1" name="ProductNewProduct" type="s:boolean" />
               <s:element minOccurs="1" maxOccurs="1" name="ProductNewProductDate" type="s:dateTime" />
@@ -100,7 +101,7 @@
               <s:element minOccurs="1" maxOccurs="1" name="ProductGiftCardExpiresDate" type="s:dateTime" />
               <s:element minOccurs="1" maxOccurs="1" name="ProductGiftCardValidForDays" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="ProductSelectableList" type="s:string" />
-              <s:element minOccurs="1" maxOccurs="1" name="ProductExcludeFromGoogleCheckout" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="ProductExcludeFromThirdPartyCheckout" type="s:boolean" />
               <s:element minOccurs="1" maxOccurs="1" name="ProductIsOversized" type="s:boolean" />
               <s:element minOccurs="1" maxOccurs="1" name="ProductSizeHeight" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="ProductSizeWidth" type="s:int" />
@@ -153,6 +154,7 @@
               <s:element minOccurs="0" maxOccurs="1" name="tiergroupproducts" type="tns:TierGroupProductCollection" />
               <s:element minOccurs="1" maxOccurs="1" name="ProductIsAmazonFBA" nillable="true" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="ProductAmazonFBASKU" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="NonDiscountable" nillable="true" type="s:boolean" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -297,6 +299,10 @@
               <s:element minOccurs="0" maxOccurs="1" name="ProductOptionImages" type="tns:ProductOptionImageCollection" />
               <s:element minOccurs="1" maxOccurs="1" name="ProductOptionIsAmazonFBA" nillable="true" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="ProductOptionAmazonFBASKU" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="ProductOptionNonDiscountable" nillable="true" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="ProductOptionWholesaleOnSale" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="ProductOptionWholesaleOnSaleStartDate" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="ProductOptionWholesaleOnSaleEndDate" nillable="true" type="s:dateTime" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -424,6 +430,9 @@
               <s:element minOccurs="1" maxOccurs="1" name="SaleStartDateTime" nillable="true" type="s:dateTime" />
               <s:element minOccurs="1" maxOccurs="1" name="SaleEndDateTime" nillable="true" type="s:dateTime" />
               <s:element minOccurs="1" maxOccurs="1" name="PriceWholesale" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="WholeSaleOnSaleStartDate" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="WholeSaleOnSaleEndDate" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="WholeSaleOnSale" nillable="true" type="s:decimal" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -471,6 +480,8 @@
               <s:element minOccurs="1" maxOccurs="1" name="AllowedCartQuantity" nillable="true" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="SocialCommerceImage" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="FraudCartQuantity" nillable="true" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="CategoryID" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="CategoryName" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="SubCategories" type="tns:SubCategoryCollection" />
             </s:sequence>
           </s:extension>
@@ -496,6 +507,7 @@
               <s:element minOccurs="0" maxOccurs="1" name="CategoryMetaDescription" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="CategoryFeaturedProducts" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="CategoryHeading" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Hidden" type="s:boolean" />
               <s:element minOccurs="0" maxOccurs="1" name="SubCategories" type="tns:SubCategoryCollection" />
             </s:sequence>
           </s:extension>
@@ -1713,6 +1725,30 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="DeletePriceBreak">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ClientName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Guid" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="InboundXML" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProcessBy" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ProcessingOptions" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeletePriceBreakResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeletePriceBreakResult">
+              <s:complexType mixed="true">
+                <s:sequence>
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="Products" type="tns:ProductCollection" />
       <s:element name="ClassificationAttributes" nillable="true" type="tns:ClassificationAttributeCollection" />
     </s:schema>
@@ -2028,6 +2064,12 @@
   </wsdl:message>
   <wsdl:message name="GetOptionPriceBreakbyProductIDSoapOut">
     <wsdl:part name="parameters" element="tns:GetOptionPriceBreakbyProductIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeletePriceBreakSoapIn">
+    <wsdl:part name="parameters" element="tns:DeletePriceBreak" />
+  </wsdl:message>
+  <wsdl:message name="DeletePriceBreakSoapOut">
+    <wsdl:part name="parameters" element="tns:DeletePriceBreakResponse" />
   </wsdl:message>
   <wsdl:message name="GetProductsByAffiliateHttpGetIn">
     <wsdl:part name="ClientName" type="s:string" />
@@ -2449,6 +2491,16 @@
     <wsdl:part name="ProductID" type="s:string" />
   </wsdl:message>
   <wsdl:message name="GetOptionPriceBreakbyProductIDHttpGetOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
+  <wsdl:message name="DeletePriceBreakHttpGetIn">
+    <wsdl:part name="ClientName" type="s:string" />
+    <wsdl:part name="Guid" type="s:string" />
+    <wsdl:part name="InboundXML" type="s:string" />
+    <wsdl:part name="ProcessBy" type="s:string" />
+    <wsdl:part name="ProcessingOptions" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DeletePriceBreakHttpGetOut">
     <wsdl:part name="Body" />
   </wsdl:message>
   <wsdl:message name="GetProductsByAffiliateHttpPostIn">
@@ -2873,6 +2925,16 @@
   <wsdl:message name="GetOptionPriceBreakbyProductIDHttpPostOut">
     <wsdl:part name="Body" />
   </wsdl:message>
+  <wsdl:message name="DeletePriceBreakHttpPostIn">
+    <wsdl:part name="ClientName" type="s:string" />
+    <wsdl:part name="Guid" type="s:string" />
+    <wsdl:part name="InboundXML" type="s:string" />
+    <wsdl:part name="ProcessBy" type="s:string" />
+    <wsdl:part name="ProcessingOptions" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="DeletePriceBreakHttpPostOut">
+    <wsdl:part name="Body" />
+  </wsdl:message>
   <wsdl:portType name="ProductServiceSoap">
     <wsdl:operation name="GetProductsByAffiliate">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Retrieves ProductCollection object for a specific Affiliate Id.</wsdl:documentation>
@@ -3122,6 +3184,11 @@
     <wsdl:operation name="GetOptionPriceBreakbyProductID">
       <wsdl:input message="tns:GetOptionPriceBreakbyProductIDSoapIn" />
       <wsdl:output message="tns:GetOptionPriceBreakbyProductIDSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePriceBreak">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Accepts XML containing product and/or product option price break information to delete.</wsdl:documentation>
+      <wsdl:input message="tns:DeletePriceBreakSoapIn" />
+      <wsdl:output message="tns:DeletePriceBreakSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="ProductServiceHttpGet">
@@ -3374,6 +3441,11 @@
       <wsdl:input message="tns:GetOptionPriceBreakbyProductIDHttpGetIn" />
       <wsdl:output message="tns:GetOptionPriceBreakbyProductIDHttpGetOut" />
     </wsdl:operation>
+    <wsdl:operation name="DeletePriceBreak">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Accepts XML containing product and/or product option price break information to delete.</wsdl:documentation>
+      <wsdl:input message="tns:DeletePriceBreakHttpGetIn" />
+      <wsdl:output message="tns:DeletePriceBreakHttpGetOut" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="ProductServiceHttpPost">
     <wsdl:operation name="GetProductsByAffiliate">
@@ -3624,6 +3696,11 @@
     <wsdl:operation name="GetOptionPriceBreakbyProductID">
       <wsdl:input message="tns:GetOptionPriceBreakbyProductIDHttpPostIn" />
       <wsdl:output message="tns:GetOptionPriceBreakbyProductIDHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePriceBreak">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Accepts XML containing product and/or product option price break information to delete.</wsdl:documentation>
+      <wsdl:input message="tns:DeletePriceBreakHttpPostIn" />
+      <wsdl:output message="tns:DeletePriceBreakHttpPostOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="ProductServiceSoap" type="tns:ProductServiceSoap">
@@ -4071,6 +4148,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetOptionPriceBreakbyProductID">
       <soap:operation soapAction="http://api.shopvisible.com/GetOptionPriceBreakbyProductID" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePriceBreak">
+      <soap:operation soapAction="http://api.shopvisible.com/DeletePriceBreak" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4531,6 +4617,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="DeletePriceBreak">
+      <soap12:operation soapAction="http://api.shopvisible.com/DeletePriceBreak" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="ProductServiceHttpGet" type="tns:ProductServiceHttpGet">
     <http:binding verb="GET" />
@@ -4984,6 +5079,15 @@
         <mime:content part="Body" type="text/xml" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="DeletePriceBreak">
+      <http:operation location="/DeletePriceBreak" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="ProductServiceHttpPost" type="tns:ProductServiceHttpPost">
     <http:binding verb="POST" />
@@ -5430,6 +5534,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetOptionPriceBreakbyProductID">
       <http:operation location="/GetOptionPriceBreakbyProductID" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="Body" type="text/xml" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePriceBreak">
+      <http:operation location="/DeletePriceBreak" />
       <wsdl:input>
         <mime:content type="application/x-www-form-urlencoded" />
       </wsdl:input>

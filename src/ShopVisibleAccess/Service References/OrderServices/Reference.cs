@@ -755,6 +755,8 @@ namespace ShopVisibleAccess.OrderServices {
         
         private System.Nullable<decimal> orderPaymentUseFeeField;
         
+        private System.Nullable<decimal> orderProcessingFeeField;
+        
         private OrderGiftCardCollection orderGiftCardsField;
         
         private OrderCreditCollection orderCreditsField;
@@ -798,6 +800,8 @@ namespace ShopVisibleAccess.OrderServices {
         private System.Nullable<decimal> orderEWasteField;
         
         private System.Nullable<bool> showItemsPriceField;
+        
+        private decimal orderAmountShippingTaxField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlArrayAttribute(Order=0)]
@@ -2060,7 +2064,19 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=105)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=105)]
+        public System.Nullable<decimal> OrderProcessingFee {
+            get {
+                return this.orderProcessingFeeField;
+            }
+            set {
+                this.orderProcessingFeeField = value;
+                this.RaisePropertyChanged("OrderProcessingFee");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=106)]
         public OrderGiftCardCollection OrderGiftCards {
             get {
                 return this.orderGiftCardsField;
@@ -2072,7 +2088,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=106)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=107)]
         public OrderCreditCollection OrderCredits {
             get {
                 return this.orderCreditsField;
@@ -2084,7 +2100,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=107)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=108)]
         public System.Nullable<bool> CompleteExported {
             get {
                 return this.completeExportedField;
@@ -2096,7 +2112,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=108)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=109)]
         public string CustomData1 {
             get {
                 return this.customData1Field;
@@ -2108,7 +2124,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=109)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=110)]
         public string CustomData2 {
             get {
                 return this.customData2Field;
@@ -2120,7 +2136,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=110)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=111)]
         public string CustomData3 {
             get {
                 return this.customData3Field;
@@ -2132,7 +2148,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=111)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=112)]
         public string CustomData4 {
             get {
                 return this.customData4Field;
@@ -2144,7 +2160,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=112)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=113)]
         public string CustomData5 {
             get {
                 return this.customData5Field;
@@ -2156,7 +2172,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=113)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=114)]
         public string CustomDataAdditionalInfo {
             get {
                 return this.customDataAdditionalInfoField;
@@ -2168,7 +2184,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=114)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=115)]
         public string OrderEbayListingID {
             get {
                 return this.orderEbayListingIDField;
@@ -2180,7 +2196,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=115)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=116)]
         public string OrderBuyDotComOrderID {
             get {
                 return this.orderBuyDotComOrderIDField;
@@ -2192,7 +2208,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=116)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=117)]
         public string OrderRoutingCode {
             get {
                 return this.orderRoutingCodeField;
@@ -2204,7 +2220,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=117)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=118)]
         public string OrderUserAgent {
             get {
                 return this.orderUserAgentField;
@@ -2216,7 +2232,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=118)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=119)]
         public string ProfitCenterNumber {
             get {
                 return this.profitCenterNumberField;
@@ -2228,7 +2244,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=119)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=120)]
         public string PurchaseOrderNumber {
             get {
                 return this.purchaseOrderNumberField;
@@ -2240,7 +2256,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=120)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=121)]
         public System.Nullable<int> CampaignId {
             get {
                 return this.campaignIdField;
@@ -2252,7 +2268,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=121)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=122)]
         public decimal TierCartFee {
             get {
                 return this.tierCartFeeField;
@@ -2264,7 +2280,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=122)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=123)]
         public decimal TierQuantityDiscount {
             get {
                 return this.tierQuantityDiscountField;
@@ -2276,7 +2292,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=123)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=124)]
         public string OrderTracking {
             get {
                 return this.orderTrackingField;
@@ -2288,7 +2304,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=124)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=125)]
         public bool OnlyShipCompleted {
             get {
                 return this.onlyShipCompletedField;
@@ -2300,7 +2316,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=125)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=126)]
         public System.Nullable<decimal> OrderEWaste {
             get {
                 return this.orderEWasteField;
@@ -2312,7 +2328,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=126)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=127)]
         public System.Nullable<bool> showItemsPrice {
             get {
                 return this.showItemsPriceField;
@@ -2320,6 +2336,18 @@ namespace ShopVisibleAccess.OrderServices {
             set {
                 this.showItemsPriceField = value;
                 this.RaisePropertyChanged("showItemsPrice");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=128)]
+        public decimal OrderAmountShippingTax {
+            get {
+                return this.orderAmountShippingTaxField;
+            }
+            set {
+                this.orderAmountShippingTaxField = value;
+                this.RaisePropertyChanged("OrderAmountShippingTax");
             }
         }
     }
@@ -2431,6 +2459,8 @@ namespace ShopVisibleAccess.OrderServices {
         private System.Nullable<bool> customerThirdPartyCatalogFlagField;
         
         private string customerBMLAccountNumberField;
+        
+        private System.Nullable<decimal> loyaltyDiscountField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
@@ -3031,6 +3061,18 @@ namespace ShopVisibleAccess.OrderServices {
             set {
                 this.customerBMLAccountNumberField = value;
                 this.RaisePropertyChanged("CustomerBMLAccountNumber");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=50)]
+        public System.Nullable<decimal> LoyaltyDiscount {
+            get {
+                return this.loyaltyDiscountField;
+            }
+            set {
+                this.loyaltyDiscountField = value;
+                this.RaisePropertyChanged("LoyaltyDiscount");
             }
         }
     }
@@ -5009,6 +5051,12 @@ namespace ShopVisibleAccess.OrderServices {
         
         private System.Nullable<decimal> priceWholesaleField;
         
+        private System.Nullable<System.DateTime> wholeSaleOnSaleStartDateField;
+        
+        private System.Nullable<System.DateTime> wholeSaleOnSaleEndDateField;
+        
+        private System.Nullable<decimal> wholeSaleOnSaleField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public int PriceProductID {
@@ -5236,6 +5284,42 @@ namespace ShopVisibleAccess.OrderServices {
                 this.RaisePropertyChanged("PriceWholesale");
             }
         }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=19)]
+        public System.Nullable<System.DateTime> WholeSaleOnSaleStartDate {
+            get {
+                return this.wholeSaleOnSaleStartDateField;
+            }
+            set {
+                this.wholeSaleOnSaleStartDateField = value;
+                this.RaisePropertyChanged("WholeSaleOnSaleStartDate");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=20)]
+        public System.Nullable<System.DateTime> WholeSaleOnSaleEndDate {
+            get {
+                return this.wholeSaleOnSaleEndDateField;
+            }
+            set {
+                this.wholeSaleOnSaleEndDateField = value;
+                this.RaisePropertyChanged("WholeSaleOnSaleEndDate");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=21)]
+        public System.Nullable<decimal> WholeSaleOnSale {
+            get {
+                return this.wholeSaleOnSaleField;
+            }
+            set {
+                this.wholeSaleOnSaleField = value;
+                this.RaisePropertyChanged("WholeSaleOnSale");
+            }
+        }
     }
     
     /// <remarks/>
@@ -5313,6 +5397,14 @@ namespace ShopVisibleAccess.OrderServices {
         private System.Nullable<int> productOptionIsAmazonFBAField;
         
         private string productOptionAmazonFBASKUField;
+        
+        private System.Nullable<bool> productOptionNonDiscountableField;
+        
+        private decimal productOptionWholesaleOnSaleField;
+        
+        private System.Nullable<System.DateTime> productOptionWholesaleOnSaleStartDateField;
+        
+        private System.Nullable<System.DateTime> productOptionWholesaleOnSaleEndDateField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
@@ -5719,6 +5811,54 @@ namespace ShopVisibleAccess.OrderServices {
             set {
                 this.productOptionAmazonFBASKUField = value;
                 this.RaisePropertyChanged("ProductOptionAmazonFBASKU");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=34)]
+        public System.Nullable<bool> ProductOptionNonDiscountable {
+            get {
+                return this.productOptionNonDiscountableField;
+            }
+            set {
+                this.productOptionNonDiscountableField = value;
+                this.RaisePropertyChanged("ProductOptionNonDiscountable");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=35)]
+        public decimal ProductOptionWholesaleOnSale {
+            get {
+                return this.productOptionWholesaleOnSaleField;
+            }
+            set {
+                this.productOptionWholesaleOnSaleField = value;
+                this.RaisePropertyChanged("ProductOptionWholesaleOnSale");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=36)]
+        public System.Nullable<System.DateTime> ProductOptionWholesaleOnSaleStartDate {
+            get {
+                return this.productOptionWholesaleOnSaleStartDateField;
+            }
+            set {
+                this.productOptionWholesaleOnSaleStartDateField = value;
+                this.RaisePropertyChanged("ProductOptionWholesaleOnSaleStartDate");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=37)]
+        public System.Nullable<System.DateTime> ProductOptionWholesaleOnSaleEndDate {
+            get {
+                return this.productOptionWholesaleOnSaleEndDateField;
+            }
+            set {
+                this.productOptionWholesaleOnSaleEndDateField = value;
+                this.RaisePropertyChanged("ProductOptionWholesaleOnSaleEndDate");
             }
         }
     }
@@ -6330,11 +6470,15 @@ namespace ShopVisibleAccess.OrderServices {
         
         private int itemShippingIdField;
         
+        private string itemDeliveryDateField;
+        
         private int shipperIdField;
         
         private int itemLevelSupplierIDField;
         
         private string itemLevelSupplierNameField;
+        
+        private string itemGiftMessageField;
         
         private string itemNextPurchaseOnField;
         
@@ -6363,6 +6507,8 @@ namespace ShopVisibleAccess.OrderServices {
         private string itemBrandField;
         
         private System.Nullable<decimal> lineItemNumberField;
+        
+        private System.Nullable<decimal> wishList_IDField;
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
@@ -6894,6 +7040,18 @@ namespace ShopVisibleAccess.OrderServices {
         
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=44)]
+        public string ItemDeliveryDate {
+            get {
+                return this.itemDeliveryDateField;
+            }
+            set {
+                this.itemDeliveryDateField = value;
+                this.RaisePropertyChanged("ItemDeliveryDate");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=45)]
         public int ShipperId {
             get {
                 return this.shipperIdField;
@@ -6905,7 +7063,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=45)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=46)]
         public int ItemLevelSupplierID {
             get {
                 return this.itemLevelSupplierIDField;
@@ -6917,7 +7075,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=46)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=47)]
         public string ItemLevelSupplierName {
             get {
                 return this.itemLevelSupplierNameField;
@@ -6929,7 +7087,19 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=47)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=48)]
+        public string ItemGiftMessage {
+            get {
+                return this.itemGiftMessageField;
+            }
+            set {
+                this.itemGiftMessageField = value;
+                this.RaisePropertyChanged("ItemGiftMessage");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=49)]
         public string ItemNextPurchaseOn {
             get {
                 return this.itemNextPurchaseOnField;
@@ -6941,7 +7111,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=48)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=50)]
         public string ItemSubscNickname {
             get {
                 return this.itemSubscNicknameField;
@@ -6953,7 +7123,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlArrayAttribute(Order=49)]
+        [System.Xml.Serialization.XmlArrayAttribute(Order=51)]
         [System.Xml.Serialization.XmlArrayItemAttribute("ProductSerial", IsNullable=false)]
         public ProductSerialDO[] ItemSerials {
             get {
@@ -6966,7 +7136,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=50)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=52)]
         public int ItemAddressID {
             get {
                 return this.itemAddressIDField;
@@ -6978,7 +7148,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=51)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=53)]
         public System.Nullable<decimal> AdjustAmount {
             get {
                 return this.adjustAmountField;
@@ -6990,7 +7160,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=52)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=54)]
         public string AdjustLabel {
             get {
                 return this.adjustLabelField;
@@ -7002,7 +7172,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=53)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=55)]
         public string ItemInvoiceNo {
             get {
                 return this.itemInvoiceNoField;
@@ -7014,7 +7184,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=54)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=56)]
         public System.Nullable<decimal> ItemInvoiceTax {
             get {
                 return this.itemInvoiceTaxField;
@@ -7026,7 +7196,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=55)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=57)]
         public System.Nullable<decimal> ItemInvoiceShipping {
             get {
                 return this.itemInvoiceShippingField;
@@ -7038,7 +7208,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=56)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=58)]
         public System.Nullable<decimal> Item_CouponAmount {
             get {
                 return this.item_CouponAmountField;
@@ -7050,7 +7220,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=57)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=59)]
         public System.Nullable<int> ItemCarrierID {
             get {
                 return this.itemCarrierIDField;
@@ -7062,7 +7232,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=58)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=60)]
         public System.Nullable<decimal> ItemEWaste {
             get {
                 return this.itemEWasteField;
@@ -7074,7 +7244,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=59)]
+        [System.Xml.Serialization.XmlElementAttribute(Order=61)]
         public string ItemBrand {
             get {
                 return this.itemBrandField;
@@ -7086,7 +7256,7 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=60)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=62)]
         public System.Nullable<decimal> LineItemNumber {
             get {
                 return this.lineItemNumberField;
@@ -7094,6 +7264,18 @@ namespace ShopVisibleAccess.OrderServices {
             set {
                 this.lineItemNumberField = value;
                 this.RaisePropertyChanged("LineItemNumber");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=63)]
+        public System.Nullable<decimal> WishList_ID {
+            get {
+                return this.wishList_IDField;
+            }
+            set {
+                this.wishList_IDField = value;
+                this.RaisePropertyChanged("WishList_ID");
             }
         }
     }
@@ -7975,6 +8157,10 @@ namespace ShopVisibleAccess.OrderServices {
         
         private int affiliateGroupIDField;
         
+        private string affiliateUserNameField;
+        
+        private string affiliatePasswordField;
+        
         /// <remarks/>
         [System.Xml.Serialization.XmlElementAttribute(Order=0)]
         public int AffiliateID {
@@ -8236,6 +8422,30 @@ namespace ShopVisibleAccess.OrderServices {
             set {
                 this.affiliateGroupIDField = value;
                 this.RaisePropertyChanged("AffiliateGroupID");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=22)]
+        public string AffiliateUserName {
+            get {
+                return this.affiliateUserNameField;
+            }
+            set {
+                this.affiliateUserNameField = value;
+                this.RaisePropertyChanged("AffiliateUserName");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=23)]
+        public string AffiliatePassword {
+            get {
+                return this.affiliatePasswordField;
+            }
+            set {
+                this.affiliatePasswordField = value;
+                this.RaisePropertyChanged("AffiliatePassword");
             }
         }
         
@@ -9397,6 +9607,10 @@ namespace ShopVisibleAccess.OrderServices {
         
         private System.Nullable<decimal> shippingHandlingField;
         
+        private System.Nullable<decimal> cartFeeThresholdField;
+        
+        private System.Nullable<decimal> cartFeeField;
+        
         private CustomerTierGroupAddressCollection tierGroupAddressesField;
         
         /// <remarks/>
@@ -9688,7 +9902,31 @@ namespace ShopVisibleAccess.OrderServices {
         }
         
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Order=24)]
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=24)]
+        public System.Nullable<decimal> CartFeeThreshold {
+            get {
+                return this.cartFeeThresholdField;
+            }
+            set {
+                this.cartFeeThresholdField = value;
+                this.RaisePropertyChanged("CartFeeThreshold");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(IsNullable=true, Order=25)]
+        public System.Nullable<decimal> CartFee {
+            get {
+                return this.cartFeeField;
+            }
+            set {
+                this.cartFeeField = value;
+                this.RaisePropertyChanged("CartFee");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Order=26)]
         public CustomerTierGroupAddressCollection TierGroupAddresses {
             get {
                 return this.tierGroupAddressesField;

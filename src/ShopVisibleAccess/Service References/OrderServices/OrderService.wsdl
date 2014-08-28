@@ -526,6 +526,7 @@
               <s:element minOccurs="1" maxOccurs="1" name="OrderPreOrderDate" nillable="true" type="s:dateTime" />
               <s:element minOccurs="1" maxOccurs="1" name="OrderSignatureWaived" nillable="true" type="s:boolean" />
               <s:element minOccurs="1" maxOccurs="1" name="OrderPaymentUseFee" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="OrderProcessingFee" nillable="true" type="s:decimal" />
               <s:element minOccurs="0" maxOccurs="1" name="OrderGiftCards" type="tns:OrderGiftCardCollection" />
               <s:element minOccurs="0" maxOccurs="1" name="OrderCredits" type="tns:OrderCreditCollection" />
               <s:element minOccurs="1" maxOccurs="1" name="CompleteExported" nillable="true" type="s:boolean" />
@@ -548,6 +549,7 @@
               <s:element minOccurs="1" maxOccurs="1" name="OnlyShipCompleted" type="s:boolean" />
               <s:element minOccurs="1" maxOccurs="1" name="OrderEWaste" nillable="true" type="s:decimal" />
               <s:element minOccurs="1" maxOccurs="1" name="showItemsPrice" nillable="true" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="OrderAmountShippingTax" type="s:decimal" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -752,9 +754,11 @@
               <s:element minOccurs="0" maxOccurs="1" name="ItemOverstockOrderItemCode" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="ItemSupplierCode" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="ItemShippingId" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="ItemDeliveryDate" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="ShipperId" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="ItemLevelSupplierID" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="ItemLevelSupplierName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ItemGiftMessage" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="ItemNextPurchaseOn" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="ItemSubscNickname" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="ItemSerials" type="tns:ProductSerialCollection" />
@@ -769,6 +773,7 @@
               <s:element minOccurs="1" maxOccurs="1" name="ItemEWaste" nillable="true" type="s:decimal" />
               <s:element minOccurs="0" maxOccurs="1" name="ItemBrand" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="LineItemNumber" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="WishList_ID" nillable="true" type="s:decimal" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -854,6 +859,9 @@
               <s:element minOccurs="1" maxOccurs="1" name="SaleStartDateTime" nillable="true" type="s:dateTime" />
               <s:element minOccurs="1" maxOccurs="1" name="SaleEndDateTime" nillable="true" type="s:dateTime" />
               <s:element minOccurs="1" maxOccurs="1" name="PriceWholesale" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="WholeSaleOnSaleStartDate" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="WholeSaleOnSaleEndDate" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="WholeSaleOnSale" nillable="true" type="s:decimal" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -1010,6 +1018,8 @@
               <s:element minOccurs="1" maxOccurs="1" name="MinimumOrderValue" nillable="true" type="s:decimal" />
               <s:element minOccurs="1" maxOccurs="1" name="HoldAllOrders" nillable="true" type="s:boolean" />
               <s:element minOccurs="1" maxOccurs="1" name="ShippingHandling" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="CartFeeThreshold" nillable="true" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="CartFee" nillable="true" type="s:decimal" />
               <s:element minOccurs="0" maxOccurs="1" name="TierGroupAddresses" type="tns:CustomerTierGroupAddressCollection" />
             </s:sequence>
           </s:extension>
@@ -1132,6 +1142,7 @@
               <s:element minOccurs="1" maxOccurs="1" name="CustomerThirdPartyEmailFlag" nillable="true" type="s:boolean" />
               <s:element minOccurs="1" maxOccurs="1" name="CustomerThirdPartyCatalogFlag" nillable="true" type="s:boolean" />
               <s:element minOccurs="0" maxOccurs="1" name="CustomerBMLAccountNumber" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="LoyaltyDiscount" nillable="true" type="s:decimal" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -1252,6 +1263,8 @@
           <s:element minOccurs="1" maxOccurs="1" name="AffiliateOverwiteNotification" nillable="true" type="s:boolean" />
           <s:element minOccurs="0" maxOccurs="1" name="AffiliateLogoURL" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="AffiliateGroupID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="AffiliateUserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="AffiliatePassword" type="s:string" />
         </s:sequence>
       </s:complexType>
       <s:complexType name="OrderGiftCardCollection">
@@ -2355,6 +2368,10 @@
               <s:element minOccurs="0" maxOccurs="1" name="ProductOptionImages" type="tns:ProductOptionImageCollection" />
               <s:element minOccurs="1" maxOccurs="1" name="ProductOptionIsAmazonFBA" nillable="true" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="ProductOptionAmazonFBASKU" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="ProductOptionNonDiscountable" nillable="true" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="ProductOptionWholesaleOnSale" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="ProductOptionWholesaleOnSaleStartDate" nillable="true" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="ProductOptionWholesaleOnSaleEndDate" nillable="true" type="s:dateTime" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
