@@ -32,7 +32,7 @@ namespace ShopVisibleAccessTests.Orders
 		public void GetOrdersByDateRange()
 		{
 			var service = this._factory.CreateOrdersService( this._credentials );
-			var orders = service.GetOrders( DateTime.UtcNow.AddDays( -1 ), DateTime.UtcNow );
+			var orders = service.GetOrders( DateTime.UtcNow.AddDays( -3 ), DateTime.UtcNow );
 
 			orders.Orders.Count.Should().BeGreaterThan( 0 );
 		}
