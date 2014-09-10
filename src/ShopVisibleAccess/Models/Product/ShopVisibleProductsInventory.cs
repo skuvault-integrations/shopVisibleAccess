@@ -7,6 +7,11 @@ namespace ShopVisibleAccess.Models.Product
 	public sealed class ShopVisibleProductsInventory
 	{
 		[ XmlElement( ElementName = "ProductInventory" ) ]
-		public List< ShopVisibleProductInventory > Products { get; set; }
+		public List< ShopVisibleProductInventory > Products{ get; set; }
+
+		public ShopVisibleProductsInventory()
+		{
+			this.Products = new List< ShopVisibleProductInventory >();
+		}
 	}
 }

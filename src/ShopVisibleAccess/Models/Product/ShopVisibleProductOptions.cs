@@ -7,6 +7,11 @@ namespace ShopVisibleAccess.Models.Product
 	public class ShopVisibleProductOptions
 	{
 		[ XmlElement( ElementName = "ProductOption" ) ]
-		public List< ShopVisibleProductOption > ProductOptions{ get; set; }
+		public List< ShopVisibleProductOption > Options{ get; set; }
+
+		public ShopVisibleProductOptions()
+		{
+			this.Options = new List< ShopVisibleProductOption >();
+		}
 	}
 }
