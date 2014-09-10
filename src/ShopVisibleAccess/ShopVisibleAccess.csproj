@@ -61,8 +61,12 @@
     <Compile Include="Models\Order\ShopVisibleOrder.cs" />
     <Compile Include="Models\Order\ShopVisibleOrderItems.cs" />
     <Compile Include="Models\Order\ShopVisibleOrders.cs" />
-    <Compile Include="Models\Product\ShopVisibleProduct.cs" />
-    <Compile Include="Models\Product\ShopVisibleProducts.cs" />
+    <Compile Include="Models\Product\ShopVisibleProductInventory.cs" />
+    <Compile Include="Models\Product\ShopVisibleProductOption.cs" />
+    <Compile Include="Models\Product\ShopVisibleProductOptionGroup.cs" />
+    <Compile Include="Models\Product\ShopVisibleProductOptionGroups.cs" />
+    <Compile Include="Models\Product\ShopVisibleProductOptions.cs" />
+    <Compile Include="Models\Product\ShopVisibleProductsInventory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service References\OrderServices\Reference.cs">
       <AutoGen>True</AutoGen>

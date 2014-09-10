@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentAssertions;
 using LINQtoCSV;
 using NUnit.Framework;
 using ShopVisibleAccess;
@@ -29,14 +30,32 @@ namespace ShopVisibleAccessTests.Products
 		}
 
 		[ Test ]
+		public void GetProducts()
+		{
+			var service = this._factory.CreateProductsService( this._credentials );
+			var inventory = service.GetInventory();
+
+			inventory.Count.Should().BeGreaterThan( 0 );
+		}
+
+		[ Test ]
+		public async Task GetProductsAsync()
+		{
+			var service = this._factory.CreateProductsService( this._credentials );
+			var inventory = await service.GetInventoryAsync();
+
+			inventory.Count.Should().BeGreaterThan( 0 );
+		}
+
+		[ Test ]
 		public void UpdateProducts()
 		{
 			var service = this._factory.CreateProductsService( this._credentials );
-			var products = new ShopVisibleProducts
+			var products = new ShopVisibleProductsInventory
 			{
-				Products = new List< ShopVisibleProduct >
+				Products = new List< ShopVisibleProductInventory >
 				{
-					new ShopVisibleProduct
+					new ShopVisibleProductInventory
 					{
 						Quantity = 0,
 						Sku = "MWW291Z"
@@ -51,11 +70,11 @@ namespace ShopVisibleAccessTests.Products
 		public async Task UpdateProductsAsync()
 		{
 			var service = this._factory.CreateProductsService( this._credentials );
-			var products = new ShopVisibleProducts
+			var products = new ShopVisibleProductsInventory
 			{
-				Products = new List< ShopVisibleProduct >
+				Products = new List< ShopVisibleProductInventory >
 				{
-					new ShopVisibleProduct
+					new ShopVisibleProductInventory
 					{
 						Quantity = 0,
 						Sku = "MWW291Z"

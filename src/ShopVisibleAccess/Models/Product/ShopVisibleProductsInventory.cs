@@ -4,9 +4,9 @@ using System.Xml.Serialization;
 namespace ShopVisibleAccess.Models.Product
 {
 	[ XmlRoot( ElementName = "ProductsInventory" ) ]
-	public sealed class ShopVisibleProducts
+	public sealed class ShopVisibleProductsInventory
 	{
 		[ XmlElement( ElementName = "ProductInventory" ) ]
-		public List< ShopVisibleProduct > Products { get; set; }
+		public List< ShopVisibleProductInventory > Products { get; set; }
 	}
 }
