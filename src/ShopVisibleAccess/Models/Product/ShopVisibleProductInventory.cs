@@ -13,5 +13,10 @@ namespace ShopVisibleAccess.Models.Product
 
 		[ XmlElement( ElementName = "ProductOptionGroups" ) ]
 		public ShopVisibleProductOptionGroups OptionGroups{ get; set; }
+
+		public ShopVisibleProductInventory()
+		{
+			this.OptionGroups = new ShopVisibleProductOptionGroups();
+		}
 	}
 }
