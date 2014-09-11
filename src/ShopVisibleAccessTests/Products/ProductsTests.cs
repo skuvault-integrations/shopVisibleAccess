@@ -48,6 +48,48 @@ namespace ShopVisibleAccessTests.Products
 		}
 
 		[ Test ]
+		public void UpdateProductOptions()
+		{
+			var service = this._factory.CreateProductsService( this._credentials );
+			var products = new ShopVisibleProductsInventory
+			{
+				Products = new List< ShopVisibleProductInventory >
+				{
+					new ShopVisibleProductInventory
+					{
+						OptionGroups = new ShopVisibleProductOptionGroups
+						{
+							Groups = new List< ShopVisibleProductOptionGroup >
+							{
+								new ShopVisibleProductOptionGroup
+								{
+									Id = 105,
+									ProductOptions = new ShopVisibleProductOptions
+									{
+										Options = new List< ShopVisibleProductOption >
+										{
+											new ShopVisibleProductOption
+											{
+												Price = "14.99",
+												Quantity = 44,
+												Sku = "YES30-BK-00",
+												Upc = ""
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+
+			};
+
+			service.UpdateProducts( products );
+		}
+
+
+		[ Test ]
 		public void UpdateProducts()
 		{
 			var service = this._factory.CreateProductsService( this._credentials );
@@ -57,8 +99,8 @@ namespace ShopVisibleAccessTests.Products
 				{
 					new ShopVisibleProductInventory
 					{
-						Quantity = 0,
-						Sku = "MWW291Z"
+						Quantity = 44,
+						Sku = ""
 					}
 				}
 			};

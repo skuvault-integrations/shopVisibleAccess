@@ -5,7 +5,7 @@ namespace ShopVisibleAccess.Models.Product
 	[ XmlRoot( ElementName = "ProductOptionGroup" ) ]
 	public class ShopVisibleProductOptionGroup
 	{
-		[ XmlElement( ElementName = "ProductOptions" ) ]
+		[ XmlElement( ElementName = "ProductOptionGroupID" ) ]
 		public long Id{ get; set; }
 
 		[ XmlElement( ElementName = "ProductOptions" ) ]

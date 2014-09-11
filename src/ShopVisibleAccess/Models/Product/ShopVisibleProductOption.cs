@@ -6,7 +6,7 @@ namespace ShopVisibleAccess.Models.Product
 	public class ShopVisibleProductOption
 	{
 		[ XmlElement( ElementName = "ProductOptionPrice" ) ]
-		public decimal Price{ get; set; }
+		public string Price{ get; set; }
 
 		[ XmlElement( ElementName = "ProductOptionPartNo" ) ]
 		public string Sku{ get; set; }
