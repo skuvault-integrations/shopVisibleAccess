@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -34,7 +35,7 @@ namespace ShopVisibleAccessTests.Products
 		{
 			var service = this._factory.CreateProductsService( this._credentials );
 			var inventory = service.GetInventory();
-
+			var p = inventory.FirstOrDefault( i => i.Sku.Equals( "Yes30", StringComparison.InvariantCultureIgnoreCase ) );
 			inventory.Count.Should().BeGreaterThan( 0 );
 		}
 
@@ -57,6 +58,8 @@ namespace ShopVisibleAccessTests.Products
 				{
 					new ShopVisibleProductInventory
 					{
+						Sku = "Yes30",
+						Quantity = 2,
 						OptionGroups = new ShopVisibleProductOptionGroups
 						{
 							Groups = new List< ShopVisibleProductOptionGroup >
@@ -71,9 +74,9 @@ namespace ShopVisibleAccessTests.Products
 											new ShopVisibleProductOption
 											{
 												Price = "14.99",
-												Quantity = 44,
-												Sku = "YES30-BK-00",
-												Upc = ""
+												Quantity = 11,
+												Sku = "YES30-FU-00",
+												Upc = "812768614296"
 											}
 										}
 									}

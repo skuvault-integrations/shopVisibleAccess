@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
-  <contractRef ref="https://api.shopvisible.com/ProductService.asmx?wsdl" docRef="https://api.shopvisible.com/ProductService.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
-  <soap address="https://api.shopvisible.com/ProductService.asmx" xmlns:q1="http://api.shopvisible.com/" binding="q1:ProductServiceSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
-  <soap address="https://api.shopvisible.com/ProductService.asmx" xmlns:q2="http://api.shopvisible.com/" binding="q2:ProductServiceSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <contractRef ref="https://apistaging.shopvisible.com/ProductService.asmx?wsdl" docRef="https://apistaging.shopvisible.com/ProductService.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="https://apistaging.shopvisible.com/ProductService.asmx" xmlns:q1="http://api.shopvisible.com/" binding="q1:ProductServiceSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="https://apistaging.shopvisible.com/ProductService.asmx" xmlns:q2="http://api.shopvisible.com/" binding="q2:ProductServiceSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
 </discovery>

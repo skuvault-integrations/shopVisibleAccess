@@ -38,13 +38,13 @@
               <s:element minOccurs="1" maxOccurs="1" name="ProductReviewCount" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="InventoryMarkup" nillable="true" type="s:decimal" />
               <s:element minOccurs="1" maxOccurs="1" name="ProductID" type="s:int" />
-              <s:element minOccurs="1" maxOccurs="1" name="DeptID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="DeptID" nillable="true" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="ProductCode" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="ProductName" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="ProductWeight" type="s:decimal" />
               <s:element minOccurs="1" maxOccurs="1" name="ProductQuantity" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="ProductAvailability" type="s:string" />
-              <s:element minOccurs="1" maxOccurs="1" name="ProductOrderable" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="ProductOrderable" nillable="true" type="s:boolean" />
               <s:element minOccurs="0" maxOccurs="1" name="ProductImagePath" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="ProductImageRefresh" nillable="true" type="s:boolean" />
               <s:element minOccurs="0" maxOccurs="1" name="ProductThumbnailImagePath" type="s:string" />
@@ -155,6 +155,7 @@
               <s:element minOccurs="1" maxOccurs="1" name="ProductIsAmazonFBA" nillable="true" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="ProductAmazonFBASKU" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="NonDiscountable" nillable="true" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="ProductAmazonActive" nillable="true" type="s:boolean" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -289,6 +290,7 @@
               <s:element minOccurs="0" maxOccurs="1" name="ProductOptionAlternatePartNo" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="ProductOptionSubWeight" type="s:decimal" />
               <s:element minOccurs="1" maxOccurs="1" name="ProductOptionRegularCost" type="s:decimal" />
+              <s:element minOccurs="1" maxOccurs="1" name="InventoryStatus_ID" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="ProductOptionManufactureCountry" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="ProductOptionCost" type="s:decimal" />
               <s:element minOccurs="0" maxOccurs="1" name="ProductOptionAmazonSKU" type="s:string" />
@@ -509,6 +511,7 @@
               <s:element minOccurs="0" maxOccurs="1" name="CategoryHeading" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="Hidden" type="s:boolean" />
               <s:element minOccurs="0" maxOccurs="1" name="SubCategories" type="tns:SubCategoryCollection" />
+              <s:element minOccurs="1" maxOccurs="1" name="DisplayOnMobile" nillable="true" type="s:boolean" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -5553,16 +5556,16 @@
   </wsdl:binding>
   <wsdl:service name="ProductService">
     <wsdl:port name="ProductServiceSoap" binding="tns:ProductServiceSoap">
-      <soap:address location="https://api.shopvisible.com/ProductService.asmx" />
+      <soap:address location="https://apistaging.shopvisible.com/ProductService.asmx" />
     </wsdl:port>
     <wsdl:port name="ProductServiceSoap12" binding="tns:ProductServiceSoap12">
-      <soap12:address location="https://api.shopvisible.com/ProductService.asmx" />
+      <soap12:address location="https://apistaging.shopvisible.com/ProductService.asmx" />
     </wsdl:port>
     <wsdl:port name="ProductServiceHttpGet" binding="tns:ProductServiceHttpGet">
-      <http:address location="https://api.shopvisible.com/ProductService.asmx" />
+      <http:address location="https://apistaging.shopvisible.com/ProductService.asmx" />
     </wsdl:port>
     <wsdl:port name="ProductServiceHttpPost" binding="tns:ProductServiceHttpPost">
-      <http:address location="https://api.shopvisible.com/ProductService.asmx" />
+      <http:address location="https://apistaging.shopvisible.com/ProductService.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>
