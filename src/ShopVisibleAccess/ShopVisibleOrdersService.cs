@@ -23,23 +23,55 @@ namespace ShopVisibleAccess
 		public ShopVisibleOrders GetOrders( DateTime startDateUtc, DateTime endDateUtc )
 		{
 			var orders = new ShopVisibleOrders();
-			ActionPolicies.Submit.Do( () =>
+			ActionPolicies.Submit.Do(() =>
 			{
-				if( this.OrdersByDateRangeNeeded( startDateUtc, endDateUtc ) )
+				var currentStartDate = startDateUtc;
+
+				while (currentStartDate < endDateUtc)
 				{
-					var xmlnewOrders = this._client.GetOrdersByDateRange( this._credentials.ClientName, this._credentials.Guid, startDateUtc.ToString( CultureInfo.InvariantCulture ), endDateUtc.ToString( CultureInfo.InvariantCulture ), "true" );
-					orders = XmlSerializeHelpers.Deserialize< ShopVisibleOrders >( xmlnewOrders.OuterXml );
+					var currentEndDate = currentStartDate.AddHours(1);
+					if (currentEndDate > endDateUtc)
+						currentEndDate = endDateUtc;
+
+					const int pageSize = 100;
+					int pageIndex = 1;
+					while (true)
+					{
+						var xmlnewOrders = this._client.GetOrdersByDateTimeRangeByPage(
+							this._credentials.ClientName,
+							this._credentials.Guid,
+							currentStartDate.ToString(CultureInfo.InvariantCulture),
+							currentEndDate.ToString(CultureInfo.InvariantCulture),
+							"true",
+							pageIndex,
+							pageSize);
+						var newOrders = XmlSerializeHelpers.Deserialize<ShopVisibleOrders>(xmlnewOrders.OuterXml);
+
+						if (newOrders.Response.ResponseHasErrors && newOrders.Response.ResponseCode != "SUCCESS")
+							throw new Exception(string.Format("Sync Orders. Client: {0}, DateRange: ({1};{2}), IterationDateRange: ({3};{4}), ErrorDescription: {5}", this._credentials.ClientName,
+								startDateUtc, endDateUtc, currentStartDate, currentEndDate, newOrders.Response.ResponseDescription));
+
+						orders.Orders.AddRange(newOrders.Orders);
+						pageIndex++;
+						if (newOrders.Orders.Count < pageSize)
+							break;
+					}
+
+					currentStartDate = currentEndDate;
 				}
-				else
+
+				if (this.ConcatChangedOrders(startDateUtc, endDateUtc))
 				{
-					var xmlnewOrders = this._client.GetOrdersByDateTimeRange( this._credentials.ClientName, this._credentials.Guid, startDateUtc.ToString( CultureInfo.InvariantCulture ), endDateUtc.ToString( CultureInfo.InvariantCulture ), "true" );
 					var xmlmodifiedOrders = this._client.GetChangedOrdersByDateRange( this._credentials.ClientName, this._credentials.Guid, startDateUtc.ToString( CultureInfo.InvariantCulture ), endDateUtc.ToString( CultureInfo.InvariantCulture ), "true" );
-					var newOrders = XmlSerializeHelpers.Deserialize< ShopVisibleOrders >( xmlnewOrders.OuterXml );
 					var modifiedOrders = XmlSerializeHelpers.Deserialize< ShopVisibleOrders >( xmlmodifiedOrders.OuterXml );
 
-					orders.Orders = newOrders.Orders.Concat( modifiedOrders.Orders ).ToList();
+					if (modifiedOrders.Response.ResponseHasErrors && modifiedOrders.Response.ResponseCode != "SUCCESS")
+						throw new Exception(string.Format("Sync Changed Orders. Client: {0}, DateRange: ({1};{2}), ErrorDescription: {3}", this._credentials.ClientName,
+							startDateUtc, endDateUtc, modifiedOrders.Response.ResponseDescription));
+
+					orders.Orders.AddRange(modifiedOrders.Orders);
 				}
-			} );
+			});
 
 			return orders;
 		}
@@ -49,28 +81,60 @@ namespace ShopVisibleAccess
 			var orders = new ShopVisibleOrders();
 			await ActionPolicies.GetAsync.Do( async () =>
 			{
-				if( this.OrdersByDateRangeNeeded( startDateUtc, endDateUtc ) )
+				var currentStartDate = startDateUtc;
+
+				while (currentStartDate < endDateUtc)
 				{
-					var xmlnewOrders = await this._client.GetOrdersByDateRangeAsync( this._credentials.ClientName, this._credentials.Guid, startDateUtc.ToString( CultureInfo.InvariantCulture ), endDateUtc.ToString( CultureInfo.InvariantCulture ), "true" );
-					orders = XmlSerializeHelpers.Deserialize< ShopVisibleOrders >( xmlnewOrders.OuterXml );
+					var currentEndDate = currentStartDate.AddHours(1);
+					if (currentEndDate > endDateUtc)
+						currentEndDate = endDateUtc;
+
+					const int pageSize = 100;
+					int pageIndex = 1;
+					while (true)
+					{
+						var xmlnewOrders = await this._client.GetOrdersByDateTimeRangeByPageAsync(
+							this._credentials.ClientName,
+							this._credentials.Guid,
+							currentStartDate.ToString(CultureInfo.InvariantCulture),
+							currentEndDate.ToString(CultureInfo.InvariantCulture),
+							"true",
+							pageIndex,
+							pageSize);
+						var newOrders = XmlSerializeHelpers.Deserialize<ShopVisibleOrders>(xmlnewOrders.OuterXml);
+
+						if (newOrders.Response.ResponseHasErrors && newOrders.Response.ResponseCode != "SUCCESS")
+							throw new Exception(string.Format("Sync Orders. Client: {0}, DateRange: ({1};{2}), IterationDateRange: ({3};{4}), ErrorDescription: {5}", this._credentials.ClientName,
+								startDateUtc, endDateUtc, currentStartDate, currentEndDate, newOrders.Response.ResponseDescription));
+
+						orders.Orders.AddRange(newOrders.Orders);
+						pageIndex++;
+						if (newOrders.Orders.Count < pageSize)
+							break;
+					}
+
+					currentStartDate = currentEndDate;
 				}
-				else
+
+				if (this.ConcatChangedOrders(startDateUtc, endDateUtc))
 				{
-					var xmlnewOrders = await this._client.GetOrdersByDateTimeRangeAsync( this._credentials.ClientName, this._credentials.Guid, startDateUtc.ToString( CultureInfo.InvariantCulture ), endDateUtc.ToString( CultureInfo.InvariantCulture ), "true" );
 					var xmlmodifiedOrders = await this._client.GetChangedOrdersByDateRangeAsync( this._credentials.ClientName, this._credentials.Guid, startDateUtc.ToString( CultureInfo.InvariantCulture ), endDateUtc.ToString( CultureInfo.InvariantCulture ), "true" );
-					var newOrders = XmlSerializeHelpers.Deserialize< ShopVisibleOrders >( xmlnewOrders.OuterXml );
 					var modifiedOrders = XmlSerializeHelpers.Deserialize< ShopVisibleOrders >( xmlmodifiedOrders.OuterXml );
 
-					orders.Orders = newOrders.Orders.Concat( modifiedOrders.Orders ).ToList();
+					if (modifiedOrders.Response.ResponseHasErrors && modifiedOrders.Response.ResponseCode != "SUCCESS")
+						throw new Exception(string.Format("Sync Changed Orders. Client: {0}, DateRange: ({1};{2}), ErrorDescription: {3}", this._credentials.ClientName,
+							startDateUtc, endDateUtc, modifiedOrders.Response.ResponseDescription));
+
+					orders.Orders.AddRange(modifiedOrders.Orders);
 				}
 			} );
 
 			return orders;
 		}
 
-		private bool OrdersByDateRangeNeeded( DateTime startDateUtc, DateTime endDateUtc )
+		private bool ConcatChangedOrders( DateTime startDateUtc, DateTime endDateUtc )
 		{
-			return endDateUtc - startDateUtc > TimeSpan.FromDays( 2 );
+			return endDateUtc - startDateUtc < TimeSpan.FromDays( 2 );
 		}
 	}
 }
