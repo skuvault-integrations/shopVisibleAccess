@@ -53,6 +53,7 @@
     <Compile Include="..\Global\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Misc\Extensions.cs" />
     <Compile Include="IShopVisibleOrdersService.cs" />
     <Compile Include="Misc\ActionPolicies.cs" />
     <Compile Include="Misc\ShopVisibleLogger.cs" />

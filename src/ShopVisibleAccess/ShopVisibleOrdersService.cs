@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-using System.Linq;
 using System.Threading.Tasks;
 using ShopVisibleAccess.Misc;
 using ShopVisibleAccess.Models;
@@ -125,32 +124,31 @@ namespace ShopVisibleAccess
 			return orders;
 		}
 
-		public async Task< ShopVisibleOrders > GetOrdersToExportAdvancedAsync( ProcessingOptions processingOptions, int buyersRemorse = 60, int[] includeSupplierIds = null, string exportType = null )
+		public async Task< ShopVisibleOrders > GetOrdersToExportAdvancedAsync( ProcessingOptions processingOptions, AvailableExportTypes exportType, int buyersRemorse = 60, int[] includeSupplierIds = null )
 		{
 			var orders = new ShopVisibleOrders();
+			includeSupplierIds = includeSupplierIds ?? new int[ 0 ];
+			var requestParameters = processingOptions.ToPipedStrings( exportType, buyersRemorse, includeSupplierIds );
+
 			await ActionPolicies.GetAsync.Do( async () =>
 			{
 				var xmlnewOrders = await this._client.GetOrdersToExportAdvancedAsync(
 					this._credentials.ClientName,
 					this._credentials.Guid,
-					processingOptions.ToPipedStrings()
+					requestParameters
 					);
 
 				var newOrders = XmlSerializeHelpers.Deserialize< ShopVisibleOrders >( xmlnewOrders.OuterXml );
-
-				includeSupplierIds = includeSupplierIds ?? new int[0];
-				exportType = exportType ?? string.Empty;
 
 				if( newOrders.Response.ResponseHasErrors && newOrders.Response.ResponseCode != "SUCCESS" )
 				{
 					throw new Exception(
 						string.Format(
-							"Sync Orders. Client: {0}, DateRange: ({1};{2}), IterationDateRange: ({3};{4}), ErrorDescription: {5}", this._credentials.ClientName,
-							processingOptions.ToPipedStrings(), buyersRemorse, includeSupplierIds, exportType, newOrders.Response.ResponseDescription));
+							"Sync Orders. Client: {0}, Parameters: ({1}) ErrorDescription: {2}", this._credentials.ClientName,
+							requestParameters, newOrders.Response.ResponseDescription ) );
 				}
 
 				orders.Orders.AddRange( newOrders.Orders );
-
 			} );
 
 			return orders;
@@ -176,16 +174,18 @@ namespace ShopVisibleAccess
 		ItemStatusOverride = 0x100
 	}
 
-	public static class Extensions
+	public enum AvailableExportTypes
 	{
-		public static string ToPipedStrings( this ProcessingOptions source )
-		{
-			var res = ( from object processingOption in Enum.GetValues( typeof( ProcessingOptions ) )
-				where ( source & ( ProcessingOptions )processingOption ) != 0
-				select source.ToString()
-				).ToList();
-
-			return string.Join( "|", res );
-		}
+		Customer = 0,
+		CustomerListrak = 1,
+		OrderListrak = 2,
+		OrderDefault = 3,
+		OrderGenericFile = 4,
+		CartAllExport = 5,
+		CartAbandonedExport = 6,
+		CartAbandonedTierExport = 7,
+		CartAbandonedNonTierExport = 8,
+		GoogleTrustedStoreShipOrderExport = 9,
+		GoogleTrustedStoreCancelledOrderExport = 10
 	}
 }
