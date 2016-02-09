@@ -38,6 +38,15 @@ namespace ShopVisibleAccessTests.Orders
 		}
 
 		[ Test ]
+		public async Task GetOrdersToExportAdvancedAsync()
+		{
+			var service = this._factory.CreateOrdersService( this._credentials );
+			var orders = await service.GetOrdersToExportAdvancedAsync( ProcessingOptions.BuyersRemorseMinutes, AvailableExportTypes.Customer, 60, new[] { 1273, 1307, 1308 } );
+
+			orders.Orders.Count.Should().BeGreaterThan( 0 );
+		}
+
+		[ Test ]
 		public async Task GetOrdersByDateRangeAsync()
 		{
 			var service = this._factory.CreateOrdersService( this._credentials );
