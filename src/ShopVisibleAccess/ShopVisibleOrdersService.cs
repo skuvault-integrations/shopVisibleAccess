@@ -10,13 +10,13 @@ namespace ShopVisibleAccess
 {
 	public sealed class ShopVisibleOrdersService: IShopVisibleOrdersService
 	{
-		private readonly ShopVisibleCredentials _credentials;
 		private readonly OrderServiceSoapClient _client;
+		private readonly ShopVisibleCredentials _credentials;
 
 		public ShopVisibleOrdersService( ShopVisibleCredentials credentials )
 		{
-			_credentials = credentials;
-			_client = new OrderServiceSoapClient();
+			this._credentials = credentials;
+			this._client = new OrderServiceSoapClient();
 		}
 
 		public ShopVisibleOrders GetOrders( DateTime startDateUtc, DateTime endDateUtc )
@@ -124,11 +124,11 @@ namespace ShopVisibleAccess
 			return orders;
 		}
 
-		public async Task< ShopVisibleOrders > GetOrdersToExportAdvancedAsync( ProcessingOptions processingOptions, AvailableExportTypes exportType, int buyersRemorse = 60, int[] includeSupplierIds = null )
+		public async Task< ShopVisibleOrders > GetOrdersToExportAdvancedAsync( ProcessingOptions processingOptions, AvailableExportTypes exportType, bool returnAddressesOnly, bool includeCustomerTokens, int ordersToReturn, int buyersRemorse = 60, int[] includeSupplierIds = null )
 		{
 			var orders = new ShopVisibleOrders();
 			includeSupplierIds = includeSupplierIds ?? new int[ 0 ];
-			var requestParameters = processingOptions.ToPipedStrings( exportType, buyersRemorse, includeSupplierIds );
+			var requestParameters = processingOptions.ToPipedStrings( exportType, buyersRemorse, includeSupplierIds, returnAddressesOnly, includeCustomerTokens, ordersToReturn );
 
 			await ActionPolicies.GetAsync.Do( async () =>
 			{

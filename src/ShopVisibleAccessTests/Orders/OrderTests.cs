@@ -41,7 +41,15 @@ namespace ShopVisibleAccessTests.Orders
 		public async Task GetOrdersToExportAdvancedAsync()
 		{
 			var service = this._factory.CreateOrdersService( this._credentials );
-			var orders = await service.GetOrdersToExportAdvancedAsync( ProcessingOptions.BuyersRemorseMinutes, AvailableExportTypes.Customer, 60, new[] { 1273, 1307, 1308 } );
+			var orders = await service.GetOrdersToExportAdvancedAsync(
+				ProcessingOptions.ExportType
+				| ProcessingOptions.BuyersRemorseMinutes
+				| ProcessingOptions.IncludeSupplierIds
+				| ProcessingOptions.ReturnOrderAddressesOnly
+				| ProcessingOptions.IncludeCustomerTokens
+				| ProcessingOptions.OrdersToReturn
+				,
+				AvailableExportTypes.Customer, true, false, 100, 60, new[] { 1273, 1307, 1308 } );
 
 			orders.Orders.Count.Should().BeGreaterThan( 0 );
 		}
