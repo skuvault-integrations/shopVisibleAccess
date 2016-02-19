@@ -15,8 +15,11 @@ namespace ShopVisibleAccess.Models.Order
 		[ XmlElement( ElementName = "OrderDate" ) ]
 		public DateTime OrderDate { get; set; }
 
-		[XmlElement(ElementName = "LastModifiedDate")]
-		public DateTime LastModifiedDate { get; set; }
+		[ XmlElement( ElementName = "OrderAmountShipping" ) ]
+		public decimal OrderAmountShipping{ get; set; }
+
+		[ XmlElement( ElementName = "LastModifiedDate" ) ]
+		public DateTime LastModifiedDate{ get; set; }
 
 		[ XmlElement( ElementName = "OrderStatusId" ) ]
 		public int OrderStatusId { get; set; }
