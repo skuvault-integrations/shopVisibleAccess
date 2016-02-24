@@ -48,8 +48,10 @@ namespace ShopVisibleAccessTests.Orders
 				| ProcessingOptions.ReturnOrderAddressesOnly
 				| ProcessingOptions.IncludeCustomerTokens
 				| ProcessingOptions.OrdersToReturn
+				| ProcessingOptions.ItemStatusOverride
+				| ProcessingOptions.OrderStatusOverride
 				,
-				AvailableExportTypes.Customer, true, false, 100, 60, new[] { 1273, 1307, 1308 } );
+				AvailableExportTypes.Customer, true, false, 100, new[] { 4, 8, 12, 14, 15, 20, 21, 31, 34 }, new[] { 4, 18, 23, 30 }, new[] { 1273, 1307, 1308 }, 60 );
 
 			orders.Orders.Count.Should().BeGreaterThan( 0 );
 		}

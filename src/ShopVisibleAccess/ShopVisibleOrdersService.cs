@@ -124,11 +124,13 @@ namespace ShopVisibleAccess
 			return orders;
 		}
 
-		public async Task< ShopVisibleOrders > GetOrdersToExportAdvancedAsync( ProcessingOptions processingOptions, AvailableExportTypes exportType, bool returnAddressesOnly, bool includeCustomerTokens, int ordersToReturn, int buyersRemorse = 60, int[] includeSupplierIds = null )
+		public async Task< ShopVisibleOrders > GetOrdersToExportAdvancedAsync( ProcessingOptions processingOptions, AvailableExportTypes exportType, bool returnAddressesOnly, bool includeCustomerTokens, int ordersToReturn, int[] orderStatusOverride, int[] itemStatusOverride, int[] includeSupplierIds, int buyersRemorse = 60 )
 		{
 			var orders = new ShopVisibleOrders();
 			includeSupplierIds = includeSupplierIds ?? new int[ 0 ];
-			var requestParameters = processingOptions.ToPipedStrings( exportType, buyersRemorse, includeSupplierIds, returnAddressesOnly, includeCustomerTokens, ordersToReturn );
+			orderStatusOverride = orderStatusOverride ?? new int[ 0 ];
+			itemStatusOverride = itemStatusOverride ?? new int[ 0 ];
+			var requestParameters = processingOptions.ToPipedStrings( exportType, buyersRemorse, includeSupplierIds, returnAddressesOnly, includeCustomerTokens, ordersToReturn, orderStatusOverride, itemStatusOverride );
 
 			await ActionPolicies.GetAsync.Do( async () =>
 			{

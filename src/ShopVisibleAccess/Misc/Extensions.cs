@@ -5,7 +5,7 @@ namespace ShopVisibleAccess.Misc
 {
 	public static class Extensions
 	{
-		public static string ToPipedStrings( this ProcessingOptions source, AvailableExportTypes exportType, int buyersRemorse, int[] includeSupplierIds, bool returnAddressesOnly, bool includeCustomerTokens, int ordersToReturn )
+		public static string ToPipedStrings( this ProcessingOptions source, AvailableExportTypes exportType, int buyersRemorse, int[] includeSupplierIds, bool returnAddressesOnly, bool includeCustomerTokens, int ordersToReturn, int[] orderStatusOverride, int[] itemStatusOverride )
 		{
 			Func< ProcessingOptions, string > serialiserWithParameters = x =>
 			{
@@ -20,7 +20,13 @@ namespace ShopVisibleAccess.Misc
 						parameters = "=" + exportType;
 						break;
 					case ProcessingOptions.IncludeSupplierIds:
-						parameters = includeSupplierIds != null && includeSupplierIds.Length > 0 ? "=" + string.Join( ",", includeSupplierIds.Select( y => y.ToString() ) ) : string.Empty;
+						parameters = ConvertToCommaSeparatedString(includeSupplierIds);
+						break;
+					case ProcessingOptions.OrderStatusOverride:
+						parameters = ConvertToCommaSeparatedString( orderStatusOverride );
+						break;
+					case ProcessingOptions.ItemStatusOverride:
+						parameters = ConvertToCommaSeparatedString(itemStatusOverride);
 						break;
 					case ProcessingOptions.ReturnOrderAddressesOnly:
 						parameters = "=" + returnAddressesOnly.ToString();
@@ -36,8 +42,6 @@ namespace ShopVisibleAccess.Misc
 				return x.ToString() + parameters;
 			};
 
-			includeSupplierIds = includeSupplierIds ?? new int[ 0 ];
-
 			var values = Enum.GetValues( typeof( ProcessingOptions ) );
 
 			var res = ( from object processingOption in values
@@ -47,6 +51,11 @@ namespace ShopVisibleAccess.Misc
 				).ToList();
 
 			return string.Join( "|", res ).ToLowerInvariant();
+		}
+
+		private static string ConvertToCommaSeparatedString( int[] orderStatusOverride )
+		{
+			return orderStatusOverride != null && orderStatusOverride.Length > 0 ? "=" + string.Join(",", orderStatusOverride.Select(y => y.ToString())) : string.Empty;
 		}
 	}
 }
