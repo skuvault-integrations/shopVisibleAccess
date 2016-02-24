@@ -7,13 +7,16 @@ namespace ShopVisibleAccess.Models.Order
 	public sealed class ShopVisibleOrder
 	{
 		[ XmlElement( ElementName = "OrderID" ) ]
-		public int OrderId { get; set; }
+		public int OrderId{ get; set; }
 
 		[ XmlElement( ElementName = "OrderNumber" ) ]
-		public int OrderNumber { get; set; }
+		public int OrderNumber{ get; set; }
+
+		[ XmlElement( ElementName = "OrderExternalOrderID" ) ]
+		public int OrderExternalOrderID{ get; set; }
 
 		[ XmlElement( ElementName = "OrderDate" ) ]
-		public DateTime OrderDate { get; set; }
+		public DateTime OrderDate{ get; set; }
 
 		[ XmlElement( ElementName = "OrderAmountShipping" ) ]
 		public decimal OrderAmountShipping{ get; set; }
@@ -22,34 +25,34 @@ namespace ShopVisibleAccess.Models.Order
 		public DateTime LastModifiedDate{ get; set; }
 
 		[ XmlElement( ElementName = "OrderStatusId" ) ]
-		public int OrderStatusId { get; set; }
+		public int OrderStatusId{ get; set; }
 
 		[ XmlElement( ElementName = "OrderItems" ) ]
-		public ShopVisibleOrderItems OrderItems { get; set; }
+		public ShopVisibleOrderItems OrderItems{ get; set; }
 
 		[ XmlElement( ElementName = "OrderAmountTotal" ) ]
-		public decimal OrderAmountTotal { get; set; }
-
-		[ XmlElement( ElementName = "OrderShippingAddress1" ) ]
-		public string OrderShippingAddress1 { get; set; }
-
-		[ XmlElement( ElementName = "OrderShippingAddress2" ) ]
-		public string OrderShippingAddress2 { get; set; }
-
-		[ XmlElement( ElementName = "OrderShippingCity" ) ]
-		public string OrderShippingCity { get; set; }
+		public decimal OrderAmountTotal{ get; set; }
 
 		[ XmlElement( ElementName = "OrderShippingStateProvince" ) ]
-		public string OrderShippingStateProvince { get; set; }
+		public string OrderShippingStateProvince{ get; set; }
 
 		[ XmlElement( ElementName = "OrderShippingZip" ) ]
-		public string OrderShippingZip { get; set; }
+		public string OrderShippingZip{ get; set; }
 
 		[ XmlElement( ElementName = "OrderShippingCountry" ) ]
-		public string OrderShippingCountry { get; set; }
+		public string OrderShippingCountry{ get; set; }
 
 		[ XmlElement( ElementName = "OrderCustomer" ) ]
-		public ShopVisibleOrderCustomer OrderCustomer { get; set; }
+		public ShopVisibleOrderCustomer OrderCustomer{ get; set; }
+
+		[ XmlElement( ElementName = "OrderShippingAddress1" ) ]
+		public string OrderShippingAddress1{ get; set; }
+
+		[ XmlElement( ElementName = "OrderShippingAddress2" ) ]
+		public string OrderShippingAddress2{ get; set; }
+
+		[ XmlElement( ElementName = "OrderShippingCity" ) ]
+		public string OrderShippingCity{ get; set; }
 	}
 
 	public enum OrderStatusEnum
