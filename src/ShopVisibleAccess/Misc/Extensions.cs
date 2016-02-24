@@ -20,13 +20,13 @@ namespace ShopVisibleAccess.Misc
 						parameters = "=" + exportType;
 						break;
 					case ProcessingOptions.IncludeSupplierIds:
-						parameters = ConvertToCommaSeparatedString(includeSupplierIds);
+						parameters = ConvertToCommaSeparatedString( includeSupplierIds );
 						break;
 					case ProcessingOptions.OrderStatusOverride:
 						parameters = ConvertToCommaSeparatedString( orderStatusOverride );
 						break;
 					case ProcessingOptions.ItemStatusOverride:
-						parameters = ConvertToCommaSeparatedString(itemStatusOverride);
+						parameters = ConvertToCommaSeparatedString( itemStatusOverride );
 						break;
 					case ProcessingOptions.ReturnOrderAddressesOnly:
 						parameters = "=" + returnAddressesOnly.ToString();
@@ -55,7 +55,7 @@ namespace ShopVisibleAccess.Misc
 
 		private static string ConvertToCommaSeparatedString( int[] orderStatusOverride )
 		{
-			return orderStatusOverride != null && orderStatusOverride.Length > 0 ? "=" + string.Join(",", orderStatusOverride.Select(y => y.ToString())) : string.Empty;
+			return orderStatusOverride != null && orderStatusOverride.Length > 0 ? "=" + string.Join( ",", orderStatusOverride.Select( y => y.ToString() ) ) : string.Empty;
 		}
 	}
 }

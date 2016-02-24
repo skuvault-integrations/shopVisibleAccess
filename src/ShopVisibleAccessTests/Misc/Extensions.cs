@@ -12,14 +12,14 @@ namespace ShopVisibleAccessTests.Misc
 		public void ToPipedStrings_EnumPassed_CorrectStringReturned()
 		{
 			//A
-			const ProcessingOptions processingOptions = ProcessingOptions.ExportType 
-				| ProcessingOptions.BuyersRemorseMinutes
-				| ProcessingOptions.IncludeSupplierIds 
-				| ProcessingOptions.ReturnOrderAddressesOnly 
-				| ProcessingOptions.IncludeCustomerTokens 
-				| ProcessingOptions.OrdersToReturn
-				| ProcessingOptions.OrderStatusOverride
-				| ProcessingOptions.ItemStatusOverride;
+			const ProcessingOptions processingOptions = ProcessingOptions.ExportType
+			                                            | ProcessingOptions.BuyersRemorseMinutes
+			                                            | ProcessingOptions.IncludeSupplierIds
+			                                            | ProcessingOptions.ReturnOrderAddressesOnly
+			                                            | ProcessingOptions.IncludeCustomerTokens
+			                                            | ProcessingOptions.OrdersToReturn
+			                                            | ProcessingOptions.OrderStatusOverride
+			                                            | ProcessingOptions.ItemStatusOverride;
 
 			const AvailableExportTypes availableExportTypes = AvailableExportTypes.Customer;
 			const int buyersRemorse = 60;
@@ -31,11 +31,11 @@ namespace ShopVisibleAccessTests.Misc
 			const int ordersToReturn = 100;
 
 			//A
-			var pipedStrings = processingOptions.ToPipedStrings(availableExportTypes, buyersRemorse, includeSupplierIds, returnAddressesOnly, includeCustomerTokens, ordersToReturn, orderStatusOvveride, itemStatusOverride);
+			var pipedStrings = processingOptions.ToPipedStrings( availableExportTypes, buyersRemorse, includeSupplierIds, returnAddressesOnly, includeCustomerTokens, ordersToReturn, orderStatusOvveride, itemStatusOverride );
 
 			//A
 			//pipedStrings.Should().Be( "exporttype=Customer|buyersremorseminutes=60|IncludeSupplierIDs=1,2,3|returnorderaddressesonly=true|includecustomertokens=false|OrdersToReturn=100".ToLowerInvariant() );
-			pipedStrings.Should().Be("exporttype=Customer|buyersremorseminutes=60|IncludeSupplierIDs=1,2,3|OrdersToReturn=100|returnorderaddressesonly=true|includecustomertokens=false|orderstatusoverride=1,2,3|itemstatusoverride=1,2,3".ToLowerInvariant());
+			pipedStrings.Should().Be( "exporttype=Customer|buyersremorseminutes=60|IncludeSupplierIDs=1,2,3|OrdersToReturn=100|returnorderaddressesonly=true|includecustomertokens=false|orderstatusoverride=1,2,3|itemstatusoverride=1,2,3".ToLowerInvariant() );
 		}
 	}
 }
