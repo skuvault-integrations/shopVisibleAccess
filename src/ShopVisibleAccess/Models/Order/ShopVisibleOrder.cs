@@ -13,7 +13,7 @@ namespace ShopVisibleAccess.Models.Order
 		public int OrderNumber{ get; set; }
 
 		[ XmlElement( ElementName = "OrderExternalOrderID" ) ]
-		public int OrderExternalOrderID{ get; set; }
+		public string OrderExternalOrderID{ get; set; }
 
 		[ XmlElement( ElementName = "OrderDate" ) ]
 		public DateTime OrderDate{ get; set; }
