@@ -68,21 +68,21 @@ namespace ShopVisibleAccess.Services
 
         public override ArraySegment<byte> WriteMessage(Message message, int maxMessageSize, BufferManager bufferManager, int messageOffset)
         {
-            MemoryStream stream = new MemoryStream();
-            XmlWriter writer = XmlWriter.Create(stream, this.writerSettings);
-            message.WriteMessage(writer);
-            writer.Close();
-            
-            byte[] messageBytes = stream.GetBuffer();
-            int messageLength = (int)stream.Position;
-            stream.Close();
+	        using( var stream = new MemoryStream() )
+	        {
+		        using( var writer = XmlWriter.Create( stream, this.writerSettings ) )
+			        message.WriteMessage( writer );
 
-            int totalLength = messageLength + messageOffset;
-            byte[] totalBytes = bufferManager.TakeBuffer(totalLength);
-            Array.Copy(messageBytes, 0, totalBytes, messageOffset, messageLength);
+		        var messageBytes = stream.GetBuffer();
+		        var messageLength = ( int )stream.Position;
 
-            ArraySegment<byte> byteArray = new ArraySegment<byte>(totalBytes, messageOffset, messageLength);
-            return byteArray;
+		        var totalLength = messageLength + messageOffset;
+		        var totalBytes = bufferManager.TakeBuffer( totalLength );
+		        Array.Copy( messageBytes, 0, totalBytes, messageOffset, messageLength );
+
+		        var byteArray = new ArraySegment< byte >( totalBytes, messageOffset, messageLength );
+		        return byteArray;
+	        }
         }
 
         public override void WriteMessage(Message message, Stream stream)
