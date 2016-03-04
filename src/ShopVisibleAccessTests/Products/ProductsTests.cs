@@ -31,6 +31,15 @@ namespace ShopVisibleAccessTests.Products
 		}
 
 		[ Test ]
+		public void IsInventoryReceived()
+		{
+			var service = this._factory.CreateProductsService( this._credentials );
+			var inventory = service.IsInventoryReceived();
+
+			inventory.Should().BeTrue();
+		}
+
+		[ Test ]
 		public void GetProducts()
 		{
 			var service = this._factory.CreateProductsService( this._credentials );

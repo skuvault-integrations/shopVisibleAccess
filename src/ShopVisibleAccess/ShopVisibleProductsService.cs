@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ShopVisibleAccess.Misc;
 using ShopVisibleAccess.Models;
@@ -16,6 +17,20 @@ namespace ShopVisibleAccess
 		{
 			this._credentials = credentials;
 			this._client = new ProductServiceSoapClient( credentials.ProductsEndpointName );
+		}
+
+		public bool IsInventoryReceived()
+		{
+			try
+			{
+				var xmlInventory = this._client.GetProductInventory( this._credentials.ClientName, this._credentials.Guid );
+				XmlSerializeHelpers.Deserialize< ShopVisibleProductsInventory >( xmlInventory.OuterXml );
+				return true;
+			}
+			catch( Exception )
+			{
+				return false;
+			}
 		}
 
 		public List< ShopVisibleProductInventory > GetInventory()

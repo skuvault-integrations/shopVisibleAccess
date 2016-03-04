@@ -29,6 +29,15 @@ namespace ShopVisibleAccessTests.Orders
 		}
 
 		[ Test ]
+		public void IsOrdersReceived()
+		{
+			var service = this._factory.CreateOrdersService( this._credentials );
+			var orders = service.IsOrdersReceived();
+
+			orders.Should().BeTrue();
+		}
+
+		[ Test ]
 		public void GetOrdersByDateRange()
 		{
 			var service = this._factory.CreateOrdersService( this._credentials );

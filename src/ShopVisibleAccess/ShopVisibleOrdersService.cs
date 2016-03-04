@@ -19,6 +19,28 @@ namespace ShopVisibleAccess
 			this._client = new OrderServiceSoapClient( credentials.OrdersEndpointName );
 		}
 
+		public bool IsOrdersReceived()
+		{
+			try
+			{
+				var endDateUtc = DateTime.UtcNow.AddMinutes( -5 );
+				var startDateUtc = endDateUtc.AddHours( -1 );
+
+				var xmlnewOrders = this._client.GetOrdersByDateTimeRange( this._credentials.ClientName, this._credentials.Guid,
+					startDateUtc.ToString( CultureInfo.InvariantCulture ), endDateUtc.ToString( CultureInfo.InvariantCulture ), "true" );
+				var newOrders = XmlSerializeHelpers.Deserialize< ShopVisibleOrders >( xmlnewOrders.OuterXml );
+
+				if( newOrders.Response.ResponseHasErrors && newOrders.Response.ResponseCode != "SUCCESS" )
+					return false;
+
+				return true;
+			}
+			catch( Exception )
+			{
+				return false;
+			}
+		}
+
 		public ShopVisibleOrders GetOrders( DateTime startDateUtc, DateTime endDateUtc )
 		{
 			var orders = new ShopVisibleOrders();

@@ -6,6 +6,8 @@ namespace ShopVisibleAccess
 {
 	public interface IShopVisibleProductsService
 	{
+		bool IsInventoryReceived();
+
 		List< ShopVisibleProductInventory > GetInventory();
 		Task< List< ShopVisibleProductInventory > > GetInventoryAsync();
 
