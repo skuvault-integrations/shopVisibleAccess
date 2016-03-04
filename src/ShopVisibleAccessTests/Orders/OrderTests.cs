@@ -14,11 +14,25 @@ namespace ShopVisibleAccessTests.Orders
 		private ShopVisibleCredentials _credentials;
 		private ShopVisibleFactory _factory;
 
+		[ SetUp ]
+		public void Init()
+		{
+			const string credentialsFilePath = @"..\..\Files\ShopVisibleCredentials.csv";
+
+			var cc = new CsvContext();
+			var testConfig = cc.Read< TestConfig >( credentialsFilePath, new CsvFileDescription { FirstLineHasColumnNames = true } ).FirstOrDefault();
+
+			if( testConfig != null )
+				this._credentials = new ShopVisibleCredentials( testConfig.ClientName, testConfig.Guid );
+
+			this._factory = new ShopVisibleFactory();
+		}
+
 		[ Test ]
 		public void GetOrdersByDateRange()
 		{
 			var service = this._factory.CreateOrdersService( this._credentials );
-			var orders = service.GetOrders( DateTime.UtcNow.AddDays( -3 ), DateTime.UtcNow );
+			var orders = service.GetOrders( DateTime.UtcNow.AddDays( -1 ), DateTime.UtcNow );
 
 			orders.Orders.Count.Should().BeGreaterThan( 0 );
 		}
@@ -67,20 +81,6 @@ namespace ShopVisibleAccessTests.Orders
 				AvailableExportTypes.Customer, true, false, 100, new[] { 4, 8, 12, 14, 15, 20, 21, 31, 34 }, new[] { 4, 18, 23, 30 }, new[] { 1273, 1307, 1308 }, 60 );
 
 			orders.Orders.Count.Should().BeGreaterThan( 0 );
-		}
-
-		[ SetUp ]
-		public void Init()
-		{
-			const string credentialsFilePath = @"..\..\Files\ShopVisibleCredentials.csv";
-
-			var cc = new CsvContext();
-			var testConfig = cc.Read< TestConfig >( credentialsFilePath, new CsvFileDescription { FirstLineHasColumnNames = true } ).FirstOrDefault();
-
-			if( testConfig != null )
-				this._credentials = new ShopVisibleCredentials( testConfig.ClientName, testConfig.Guid );
-
-			this._factory = new ShopVisibleFactory();
 		}
 	}
 }

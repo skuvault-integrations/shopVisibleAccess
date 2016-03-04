@@ -15,7 +15,7 @@ namespace ShopVisibleAccess
 		public ShopVisibleProductsService( ShopVisibleCredentials credentials )
 		{
 			this._credentials = credentials;
-			this._client = new ProductServiceSoapClient();
+			this._client = new ProductServiceSoapClient( credentials.ProductsEndpointName );
 		}
 
 		public List< ShopVisibleProductInventory > GetInventory()

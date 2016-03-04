@@ -16,13 +16,13 @@ namespace ShopVisibleAccess
 		public ShopVisibleOrdersService( ShopVisibleCredentials credentials )
 		{
 			this._credentials = credentials;
-			this._client = new OrderServiceSoapClient();
+			this._client = new OrderServiceSoapClient( credentials.OrdersEndpointName );
 		}
 
 		public ShopVisibleOrders GetOrders( DateTime startDateUtc, DateTime endDateUtc )
 		{
 			var orders = new ShopVisibleOrders();
-			ActionPolicies.Submit.Do( () =>
+			ActionPolicies.Get.Do( () =>
 			{
 				var currentStartDate = startDateUtc;
 
